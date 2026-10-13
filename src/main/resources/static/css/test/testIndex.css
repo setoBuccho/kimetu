@@ -39,7 +39,7 @@ body {
 }
 .logo img {
 	display: block;
-	width: 100%;                    /* 枠の幅に合わせて縮小 */
+	width: 80%;                    /* 枠の幅に合わせて縮小 */
 	height: auto;                   /* 縦横比を保つ */
 	margin: 0 auto;
 }
