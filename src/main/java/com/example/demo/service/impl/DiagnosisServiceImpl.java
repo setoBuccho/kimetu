@@ -39,18 +39,25 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 		for (Questions question : questionMapper.findAll()) {
 			int questionId = Math.toIntExact(question.getId());
 			for (Choices choice : choiceMapper.findByQuestionId(questionId)) {
+				// ★修正：「どれも当てはまらない」はキャラクターIDがNULLのため、NULLのまま登録する
+				Integer characterIdValue = choice.getCharacterId();
 				choiceToCharacter.put(
 						Math.toIntExact(choice.getId()),
-						Math.toIntExact(choice.getCharacterId()));
+						characterIdValue);
 			}
 		}
 
 		// キャラクターIDごとに1点ずつ加算（TreeMap：IDの小さい順）
 		Map<Integer, Integer> scores = new TreeMap<>();
 		for (int choiceId : choiceIds) {
-			Integer characterId = choiceToCharacter.get(choiceId);
-			if (characterId == null) {
+			// ★修正：「存在しない選択肢」かどうかは、キーの有無で判定する
+			if (!choiceToCharacter.containsKey(choiceId)) {
 				throw new IllegalArgumentException("存在しない選択肢です：" + choiceId);
+			}
+			Integer characterId = choiceToCharacter.get(choiceId);
+			// ★追加：「どれも当てはまらない」は加点しない
+			if (characterId == null) {
+				continue;
 			}
 			scores.put(characterId, scores.getOrDefault(characterId, 0) + 1);
 		}
