@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.entity.Characters;
+import com.example.demo.entity.Choices;
 import com.example.demo.entity.Diagnosis_results;
 import com.example.demo.entity.Users;
 import com.example.demo.form.DiagnosisForm;
@@ -140,17 +142,17 @@ public class TestController {
 	
 	
 
-//	@PostMapping("/test/diagnosis/final")
-//	public String finalSubmit(@RequestParam int choiceId, @RequestParam long userId, Model model) {
-//		Choices choice = testService.getChoiceById(choiceId);
-//		Characters resultCharacter = testService.getCharacterById(choice.getCharacterId());
-//		Diagnosis_results diagnosisResult = new Diagnosis_results();
-//		diagnosisResult.setUserId(userId);
-//		diagnosisResult.setCharacterId(resultCharacter.getId());
-//		diagnosisResultsService.overwriteDiagnosisResult(diagnosisResult);
-//		model.addAttribute("character", resultCharacter);
-//		return "diagnosis/result";
-//	}
+	@PostMapping("/test/diagnosis/final")
+	public String finalSubmit(@RequestParam int choiceId, @RequestParam long userId, Model model) {
+		Choices choice = testService.getChoiceById(choiceId);
+		Characters resultCharacter = testService.getCharacterById(choice.getCharacterId());
+		Diagnosis_results diagnosisResult = new Diagnosis_results();
+		diagnosisResult.setUserId(userId);
+		diagnosisResult.setCharacterId(resultCharacter.getId());
+		diagnosisResultsService.overwriteDiagnosisResult(diagnosisResult);
+		model.addAttribute("character", resultCharacter);
+		return "diagnosis/result";
+	}
 //
 //	@GetMapping("/username")
 //	public String usernameView() {
