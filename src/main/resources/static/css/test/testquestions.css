@@ -1,188 +1,229 @@
 @charset "UTF-8";
 
 /* ============================================
-   キャラクター一覧ページ専用の設定
-   ※ <body class="page-characters"> のページにだけ効く
+   キャラクター診断ページ共通CSS
+   対象：<body class="page-characters">
    ============================================ */
 
-/* ------------------------------------------------
-   1. ページ全体の土台
-   余白をなくして、画面いっぱいに使う
-   ------------------------------------------------ */
+/* 1. ページ全体・背景 */
 html:has(body.page-characters),
 body.page-characters {
-	margin: 0;
-	padding: 0;
-	background: none;          /* style.css の青い背景を消す */
+    margin: 0;
+    padding: 0;
+    background: none;
 }
 
 body.page-characters {
-	min-height: 100vh;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
-/* ------------------------------------------------
-   2. 背景画像を画面いっぱいに固定
-   ------------------------------------------------ */
+body.page-characters *,
+body.page-characters *::before,
+body.page-characters *::after {
+    box-sizing: border-box;
+}
+
 body.page-characters::before {
-	content: "";
-	position: fixed;           /* スクロールしても動かない */
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	z-index: -1;               /* 中身より後ろに置く */
-
-	/* 背景画像（このCSSの場所 static/css/test/ から見た相対パス） */
-	background-image: url("../../images/diagnosis/test/back3.jpg");
-	background-size: cover;    /* 画面いっぱいに拡大 */
-	background-position: center;
-	background-repeat: no-repeat;
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../../images/diagnosis/test/back3.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* ------------------------------------------------
-   3. 中にできている枠（.screen）を消す
-   背景・枠線・影・角丸・幅の制限をすべて取り除く
-   ------------------------------------------------ */
+/* 2. 外側の画面枠を解除 */
 body.page-characters .screen {
-	width: 100%;
-	max-width: none;           /* 幅の制限をなくす */
-	margin: 0;
-	padding: 0;
-	background: none;
-	border: none;
-	box-shadow: none;
-	border-radius: 0;
-}
-
-/* ------------------------------------------------
-   4. ヘッダー・フッターを画面の横幅いっぱいに広げる
-   ------------------------------------------------ */
-body.page-characters header,
-body.page-characters .footer {
-	width: 100%;
-	max-width: none;
-	margin: 0;
-	box-sizing: border-box;    /* 余白を含めて幅100%に収める */
-	padding: 16px;
-	background: none;
-	border: none;
-	box-shadow: none;
-	border-radius: 0;
-	text-align: center;        /* 中の文字・ロゴを中央に */
-}
-
-/* ------------------------------------------------
-   5. 質問欄
-   ------------------------------------------------ */
-
-   body.page-characters .main-column {
-       width: 70%;
-       /*min-height: 800px;*/
-       margin: 155px auto 80px;
-       padding: 0 0;
-       box-sizing: border-box;
-   }
-
-
-/* ------------------------------------------------
-   6. 1つの質問
-   ------------------------------------------------ */
-
-body.page-characters .question {
-    margin-bottom: 55px;
-	padding: 40px;
-	background: #f5f2ec;
-	border: 1px solid #222;
-}
-
-
-/* 最後の質問には余分な余白をつけない */
-
-body.page-characters .question:last-of-type {
-
-    margin-bottom: 0;
-
-}
-
-
-/* ------------------------------------------------
-   7. 質問タイトル
-   ------------------------------------------------ */
-
-body.page-characters .question-title {
-
-    margin: 0 0 12px 0;
-
+    width: 100%;
+    max-width: none;
+    margin: 0;
     padding: 0;
-
-    /* 文字の大きさ */
-    font-size: 20px;
-
-    /* 文字を太くする */
-    font-weight: bold;
-
-    text-align: left;
-
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 
-/* ------------------------------------------------
-   8. 選択肢
-   ------------------------------------------------ */
-
-body.page-characters .choices {
-
-    display: grid;
-
-    /* 1列にする */
-    grid-template-columns: 1fr;
-
-    /* 選択肢同士の間隔 */
-    row-gap: 10px;
-
+/* 3. ヘッダー */
+body.page-characters header {
+    position: relative;
+    display: flex;
     align-items: center;
-
+    justify-content: flex-start;
+    width: 100%;
+    height: 75px;
+    min-height: 75px;
+    margin: 0;
+    padding: 8px 24px;
+    box-sizing: border-box;
+    background: #f5f2ec;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-/* ------------------------------------------------
-   9. 選択肢の文字
-   ------------------------------------------------ */
+body.page-characters header .titlelogo,
+body.page-characters header .title-logo {
+    display: block;
+    height: 48px;
+    width: auto;
+    max-width: 100%;
+    margin: 0;
+}
+
+body.page-characters header .title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    max-width: calc(100% - 150px);
+    margin: 0;
+    padding: 0;
+    font-family: "Zen Antique", serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 4. メニュー */
+body.page-characters .menu-wrapper {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: 1000;
+}
+
+body.page-characters .menu-button {
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    background: #f5f2ec;
+    border: 1px solid #555;
+    border-radius: 7px;
+    font-size: 30px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+body.page-characters .menu-button:hover {
+    background: #e8e4dc;
+}
+
+body.page-characters .menu-list {
+    display: none;
+    position: absolute;
+    top: 62px;
+    right: 0;
+    width: 210px;
+    max-width: calc(100vw - 24px);
+    background: rgba(255, 253, 247, 0.98);
+    border: 1px solid #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
+}
+
+body.page-characters .menu-list.open {
+    display: flex;
+    flex-direction: column;
+}
+
+body.page-characters .menu-list a {
+    display: block;
+    padding: 18px 20px;
+    color: #333;
+    font-family: "Shippori Mincho", serif;
+    font-size: 16px;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+}
+
+body.page-characters .menu-list a:last-child {
+    border-bottom: none;
+}
+
+body.page-characters .menu-list a:hover {
+    background: #eee9df;
+}
+
+/* 5. 質問エリア
+   PCでは最大1000px、狭い画面では左右の余白を保って縮小 */
+   body.page-characters .main-column {
+         width: 50%;
+         /*min-height: 800px;*/
+         margin: 155px auto 80px;
+         padding: 0 0;
+         box-sizing: border-box;
+     }
+
+
+/* 質問と選択肢を囲む枠 */
+body.page-characters .question {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 clamp(24px, 4vw, 55px);
+    padding: clamp(16px, 3vw, 40px);
+    background: #f5f2ec;
+    border: 1px solid #222;
+    box-sizing: border-box;
+}
+
+/* 質問枠が最後の要素になるページでは下余白を調整 */
+body.page-characters .question:last-of-type {
+    margin-bottom: 0;
+}
+
+/* 6. 質問文 */
+body.page-characters .question-title {
+    margin: 0 0 12px;
+    padding: 0;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.7;
+    font-weight: bold;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+
+/* 7. 選択肢 */
+body.page-characters .choices {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+}
 
 body.page-characters .choice {
-
     display: flex;
-
-    align-items: center;
-
-    gap: 4px;
-
+    align-items: flex-start;
+    gap: 8px;
+    min-width: 0;
     font-size: 14px;
-
+    line-height: 1.7;
     cursor: pointer;
-
+    overflow-wrap: anywhere;
 }
-
-
-/* ------------------------------------------------
-   10. ラジオボタン
-   ------------------------------------------------ */
 
 body.page-characters .choice input[type="radio"] {
-
-    width: 12px;
-
-    height: 12px;
-
-    margin: 0;
-
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    margin: 3px 0 0;
     cursor: pointer;
-
 }
-
 
    /* ============================================
       ヘッダー
       ============================================ */
-
 	  body.page-characters header {
 
 	  	position: sticky;               /* タイトルを重ねる基準 */
@@ -267,76 +308,72 @@ body.page-characters .footer {
 	border-bottom: none;
 }
 
-body.page-characters .top-link {
-	grid-column: 2;                         /* 真ん中の列 */
-	display: block;
-	padding: 6px 24px;
-	color: #222;
-	font-weight: 700;
-	font-size: 18px;
-	text-decoration: none;                  /* 下線を消す */
-	text-align: center;
+/* 通常の診断ボタン */
+body.page-characters .diagnosis-button {
+    position: relative;
+    width: 190px;
+    max-width: 100%;
+    min-height: 54px;
+    padding: 10px 16px;
+    background: #b3432b;
+    color: #fff;
+    border: 1px solid #8f3322;
+    border-radius: 2px;
+    font-family: "Zen Old Mincho", "Noto Serif JP", serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #7d2b1d, 0 0 0 2px #f6f3ee inset;
+    transition: 0.2s;
 }
 
-body.page-characters .top-link:hover {
-	opacity: .7;                            /* マウスを乗せると少し薄く */
+body.page-characters .diagnosis-button:hover {
+    background: #963824;
 }
 
+body.page-characters .diagnosis-button:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 #7d2b1d, 0 0 0 2px #f6f3ee inset;
+}
 
-
-
-/* ------------------------------------------------
-   送信ボタン（明るめの緑・和風デザイン）
-   ------------------------------------------------ */
-.submit-button {
+/* 「結果を見る」などの送信ボタン */
+body.page-characters .submit-button {
     display: block;
-    margin: 50px auto;
-
-    width: 250px;
-    height: 50px;
-
+    width: min(250px, 100%);
+    min-height: 50px;
+    height: auto;
+    margin: 28px auto 32px;
+    padding: 12px 18px;
     font-family: "Shippori Mincho", serif;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.1em;
-
-    /* ボタンの色 */
     color: #fffdf7;
     background-color: #668b55;
-
-    /* 枠線と影 */
     border: 1px solid #496b3e;
     border-radius: 4px;
     box-shadow: 0 3px 0 #496b3e;
-
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
 
-/* マウスを乗せたとき */
-.submit-button:hover {
+body.page-characters .submit-button:hover {
     background-color: #577a48;
 }
 
-/* クリックしたとき */
-.submit-button:active {
+body.page-characters .submit-button:active {
     transform: translateY(2px);
     box-shadow: 0 1px 0 #496b3e;
 }
-  
-/* ============================================
-   右上のミニキャラクター
-   ============================================ */
 
+/* 9. 右上のミニキャラクター */
 body.page-characters .character-top-right {
     position: fixed;
     top: 85px;
     right: 10px;
-
-    /* 画面幅に応じて縮小 */
-    width: clamp(70px, 12vw, 190px);
+    width: clamp(80px, 14vw, 220px);
     height: auto;
-
     z-index: 0;
     pointer-events: none;
 }
@@ -347,21 +384,13 @@ body.page-characters .character-top-right img {
     height: auto;
 }
 
-
-
-/* ============================================
-   左下のミニキャラクター
-   ============================================ */
-
+/* 10. 左下のミニキャラクター */
 body.page-characters .character-decoration {
     position: fixed;
-
     left: -20px;
-    bottom: 0; /* 画面の一番下に固定 */
-
-    width: clamp(70px, 15vw, 190px);
+    bottom: 0;
+    width: clamp(80px, 17vw, 220px);
     height: auto;
-
     z-index: 0;
     pointer-events: none;
 }
@@ -372,85 +401,65 @@ body.page-characters .character-decoration img {
     height: auto;
 }
 
-/* 質問欄をキャラクターより手前に表示 */
-body.page-characters .main-column {
-    position: relative;
-    z-index: 1;
-
-    width: min(1000px, calc(100% - 40px));
-    margin: 155px auto 80px;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* 質問の背景を不透明にする */
-body.page-characters .question {
-    position: relative;
-    z-index: 1;
-
-    background: #f5f2ec;
-    margin-bottom: 55px;
-    padding: 40px;
-    border: 1px solid #222;
-    box-sizing: border-box;
-}
-
-/* ------------------------------------------------
-   7. フッター：ヘッダーと同じ帯。中の物を縦に中央そろえ
-   ------------------------------------------------ */
+/* 11. フッター */
 body.page-characters .footer {
-	display: flex;
-	flex-direction: column;           /* TOP（またはロゴ）→ コピーライトの縦並び */
-	align-items: center;
-	width: 100%;
-	max-width: none;
-	box-sizing: border-box;
-	margin: 16px 0 0;
-	padding: 8px 16px;
-	background: #f5f2ec;
-	border: none;
-	border-top: 1px solid #ddd;
-	border-radius: 0;
-	box-shadow: none;
-	text-align: center;
-	/* フッターをキャラクターより手前にする */
-	position: relative;
-	z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+    margin: 16px 0 0;
+    padding: 8px 16px;
+    background: #f5f2ec;
+    border: none;
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: none;
+    text-align: center;
+    position: relative;
+    z-index: 10;
 }
-/* フッターのロゴ画像を大きくなりすぎないようにする */
+
 body.page-characters .footer img {
-	display: block;
-	height: 40px;
-	width: auto;
+    display: block;
+    height: 40px;
+    width: auto;
 }
-/* 文字の「TOP」リンクを使う場合 */
+
 body.page-characters .top-link {
-	display: block;
-	padding: 6px 24px;
-	color: #222;
-	font-weight: 700;
-	font-size: 18px;
-	text-decoration: none;
+    display: block;
+    padding: 6px 24px;
+    color: #222;
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
 }
+
 body.page-characters .top-link:hover {
-	opacity: .7;
+    opacity: 0.7;
 }
+
 body.page-characters .copyright {
-	margin: 4px 0 0;
-	font-size: 11px;
-	color: #666;
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: #666;
 }
 
-/* ============================================
-   右上メニュー
-   ============================================ */
+/* 12. タブレット・小さめのPC */
+@media (max-width: 900px) {
+    body.page-characters .main-column {
+        width: calc(100% - 48px);
+    }
 
-/* メニューの配置基準 */
-body.page-characters .menu-wrapper {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    z-index: 1000;
+    body.page-characters .character-top-right {
+        width: clamp(75px, 13vw, 150px);
+    }
+
+    body.page-characters .character-decoration {
+        width: clamp(75px, 15vw, 165px);
+    }
 }
 
 /* ☰ ボタン */
@@ -468,9 +477,11 @@ body.page-characters .menu-button {
 	cursor: pointer;
 }
 
-body.page-characters .menu-button:hover {
-    background: #e8e4dc;
-}
+    body.page-characters .menu-button {
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
+    }
 
 /* リンク一覧：初期状態では非表示 */
 body.page-characters .menu-list {
@@ -490,11 +501,10 @@ body.page-characters .menu-list {
 	z-index: 1001;
 }
 
-/* メニューを開いた状態 */
-body.page-characters .menu-list.open {
-    display: flex;
-    flex-direction: column;
-}
+    body.page-characters .choice {
+        gap: 8px;
+        font-size: 14px;
+    }
 
 /* 各リンク */
 body.page-characters .menu-list a {
@@ -523,25 +533,19 @@ body.page-characters .menu-list a:hover {
 
 }
 
-/* スマホ */
-@media (max-width: 480px) {
-    body.page-characters .menu-wrapper {
-        right: 8px;
+    body.page-characters .question {
+        padding: 12px;
     }
 
-    body.page-characters .menu-button {
-        width: 44px;
-        height: 44px;
-        font-size: 24px;
+    body.page-characters .question-title {
+        font-size: 16px;
     }
 
-    body.page-characters .menu-list {
-        top: 50px;
-        width: 180px;
+    body.page-characters .character-top-right {
+        width: 58px;
     }
 
-    body.page-characters .menu-list a {
-        padding: 14px 16px;
-        font-size: 14px;
+    body.page-characters .character-decoration {
+        width: 60px;
     }
 }
