@@ -20,11 +20,7 @@
 	<div th:each="u : ${users}" class="user-card">
 		<h2 th:text="${u.name}">ユーザー名</h2>
 		<p th:text="${u.body}">自己紹介等（自由記入欄）</p>
-		<p>診断結果：
-			<img th:src="@{${characterImages[u.id]}}">
-			<span th:text="${characterNames[u.id]}">未診断</span>
-		</p>
-
+		<p>診断結果：<span th:text="${#strings.isEmpty(u.diagnosisResult)} ? '未診断' : ${u.diagnosisResult}">竈門 炭治郎</span></p>
 		<a th:href="@{/users/{id}/edit(id=${u.id})}">ユーザー編集</a>
 
 		<form th:action="@{/users/{id}/delete(id=${u.id})}" method="post" style="display:inline;"
