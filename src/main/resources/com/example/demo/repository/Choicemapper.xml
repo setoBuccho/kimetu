@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.repository.ChoiceMapper">
-	
+
 	<!-- 特定の質問にぶら下がる選択肢だけをまとめて取得（質問画面を表示するときに使用） -->
 	<select id="findByQuestionId" resultType="com.example.demo.entity.Choices">
 
@@ -19,10 +19,9 @@
     ORDER BY id
 
 </select>
-	
-	<select id="fin
-	
-	dById" resultType="com.example.demo.entity.Choices">
+
+	<!-- ★修正：id が途中で改行されていたので findById に戻した -->
+	<select id="findById" resultType="com.example.demo.entity.Choices">
 
     <!-- 有木：DBのカラム名をChoices.javaのフィールド名に合わせて取得する -->
     <!-- 有木：characters_id → characterId にすることで、診断結果のキャラクターIDを正しく取得する -->
@@ -36,7 +35,7 @@
     WHERE id = #{id}
 
 </select>
-	
+
 <!-- 有木：最終質問で、15問の診断結果が同点になったキャラクターの選択肢だけ取得する -->
 <select id="findFinalChoices" resultType="com.example.demo.entity.Choices">
     SELECT id,
@@ -51,5 +50,5 @@
       </foreach>
     ORDER BY id
 </select>
-	
+
 </mapper>
