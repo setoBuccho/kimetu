@@ -76,7 +76,7 @@ body.page-characters .footer {
    ------------------------------------------------ */
 
    body.page-characters .main-column {
-       width: 1000px;
+       width: 70%;
        /*min-height: 800px;*/
        margin: 155px auto 80px;
        padding: 0 0;
