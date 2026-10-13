@@ -16,8 +16,8 @@
 
 	<!-- 診断結果を保存 -->
 	<insert id="insert" parameterType="com.example.demo.entity.Diagnosis_results">
-		INSERT INTO diagnosis_results (users_id, characters_id, diagnosed_at)
-		VALUES (#{userId}, #{characterId}, #{diagnosedAt})
+		INSERT INTO diagnosis_results (users_id, characters_id)
+		VALUES (#{userId}, #{characterId})
 	</insert>
 	
 	<!-- 追加 -->
