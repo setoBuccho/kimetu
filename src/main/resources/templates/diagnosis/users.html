@@ -1,41 +1,72 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
-	<head>
-	    <meta charset="UTF-8">
-	    <title>ユーザー一覧</title>
-	    <link rel="stylesheet" th:href="@{/css/user/user.css}" href="../../static/css/user/user.css">
-	</head>
-	<body>
 
-	    <main class="screen">
-			<div class="user-list-title">
-			    <p>※絵・ライアン</p>
-			    <img src="/images/diagnosis/characters/old/etc/agatuma.jpg" alt="我妻善逸">
-			    <h1>ユーザー一覧</h1>
-			    <img src="/images/diagnosis/characters/old/etc/inosuke.jpg" alt="嘴平伊之助">
-			</div>
-			
-	<p th:if="${#lists.isEmpty(users)}">ユーザーがいません。</p>
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー一覧</title>
+    <link rel="stylesheet" th:href="@{/css/user/user.css}" href="../../static/css/user/user.css">
+</head>
 
-	<div th:each="u : ${users}" class="user-card">
-		<h2 th:text="${u.name}">ユーザー名</h2>
-		<p th:text="${u.body}">自己紹介等（自由記入欄）</p>
-		<p>診断結果：
-			<img th:src="@{${characterImages[u.id]}}">
-			<span th:text="${characterNames[u.id]}">未診断</span>
-		</p>
+<body>
+    <main class="screen">
 
-		<a th:href="@{/users/{id}/edit(id=${u.id})}">ユーザー編集</a>
+        <div class="user-list-title">
+            <p>※絵・ライアン</p>
+            <img src="/images/diagnosis/characters/old/etc/agatuma.jpg" alt="我妻善逸">
+            <h1>ユーザー一覧</h1>
+            <img src="/images/diagnosis/characters/old/etc/inosuke.jpg" alt="嘴平伊之助">
+        </div>
 
-		<form th:action="@{/users/{id}/delete(id=${u.id})}" method="post" style="display:inline;"
-		      onsubmit="return confirm('削除しますか？');">
-			<button type="submit">削除</button>
-		</form>
-	</div>
-	<a href="/" class="top-button">
-	    <img src="/images/diagnosis/test/shinobu.png" alt="胡蝶しのぶ">
-	    <span>TOPに戻る</span>
-	</a>
-</main>
+        <!-- ユーザーがいない場合 -->
+        <p th:if="${#lists.isEmpty(users)}">ユーザーがいません。</p>
+
+        <!-- ユーザー一覧 -->
+        <div th:each="u : ${users}" class="user-card">
+
+            <h2 th:text="${u.name}">ユーザー名</h2>
+
+            <p th:text="${u.body}">自己紹介等（自由記入欄）</p>
+
+            <!-- 診断結果：名前と画像を横並びに表示 -->
+            <div class="diagnosis-result"
+                 style="display: flex; align-items: center; gap: 10px;">
+
+                <p style="margin: 0;">
+                    診断結果：
+                    <span th:text="${characterNames[u.id] != null ? characterNames[u.id] : '未診断'}">
+                        未診断
+                    </span>
+                </p>
+
+                <img th:if="${characterImages[u.id] != null}"
+                     th:src="${characterImages[u.id]}"
+                     th:alt="${characterNames[u.id]}"
+                     style="width: 60px; height: 60px; object-fit: contain;">
+            </div>
+
+            <!-- ユーザー編集 -->
+            <a th:href="@{/users/{id}/edit(id=${u.id})}">
+                ユーザー編集
+            </a>
+
+            <!-- ユーザー削除 -->
+            <form th:action="@{/users/{id}/delete(id=${u.id})}"
+                  method="post"
+                  style="display: inline;"
+                  onsubmit="return confirm('削除しますか？');">
+
+                <button type="submit">削除</button>
+            </form>
+
+        </div>
+
+        <!-- TOPに戻る -->
+        <a href="/" class="top-button">
+            <img src="/images/diagnosis/test/shinobu.png" alt="胡蝶しのぶ">
+            <span>TOPに戻る</span>
+        </a>
+
+    </main>
 </body>
+
 </html>

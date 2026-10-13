@@ -208,6 +208,8 @@ body {
 .register-title p {
     position: absolute;
     top: -20px;
+	
+	
     right: 0;
     margin: 0;
     font-size: 14px;
@@ -619,3 +621,60 @@ body {
     font-weight: bold;
     white-space: nowrap;
 }
+
+/* ユーザー編集画面のタイトル画像 */
+.site-title-image {
+    width: 250px;
+    height: auto;
+    display: block;
+}
+
+/* ユーザー編集タイトル横の4人画像 */
+.edit-title img {
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+    margin-left: 50px;
+}
+
+/* ユーザー編集：ボタンを横並びにする */
+.edit-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 20px auto;
+}
+
+/* 保存・TOPボタンを同じ大きさにする */
+.edit-save-button,
+.edit-top-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+/* ボタン画像 */
+.edit-save-button img,
+.edit-top-button img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* マウスを乗せたとき */
+.edit-save-button:hover,
+.edit-top-button:hover {
+    opacity: 0.8;
+}
+
+
