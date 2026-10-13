@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.example.demo.repository.QuestionMapper">
-	
-	<!-- 全設問を取得（診断開始時に画面に出題するため、登録順でまとめて取得） -->
-	<select id="findAll" resultType="com.example.demo.entity.Questions"> 
-		SELECT id, body FROM questions ORDER BY sort_order ASC
-	</select>
-	
-	<!-- 特定の設問を取得（同点が出た時） -->
-	<select id="findById" resultType="com.example.demo.entity.Questions"> 
-		SELECT id, body FROM questions ORDER BY sort_order ASC
-	</select>
-	
+
+    <!-- 有木：通常の診断で使う1～15問だけを取得する -->
+    <select id="findAll" resultType="com.example.demo.entity.Questions">
+        SELECT id, body
+        FROM questions
+        WHERE id &lt;= 15
+        ORDER BY sort_order ASC
+    </select>
+
+    <!-- 有木：指定したIDの設問を1件だけ取得する。最終質問の取得にも使う -->
+    <select id="findById" resultType="com.example.demo.entity.Questions">
+        SELECT id, body
+        FROM questions
+        WHERE id = #{id}
+    </select>
+
 </mapper>

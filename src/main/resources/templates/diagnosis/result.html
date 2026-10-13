@@ -1,28 +1,210 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>診断結果</title>
-</head>
-<body>
-	<h1>診断結果</h1>
+	<!-- ============================== Google Fonts ============================== -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
 
-	<div th:if="${#lists.isEmpty(results)}">
-		<p>診断結果が見つかりませんでした。</p>
+	<link rel="stylesheet"　th:href="@{/css/normalize.css}" href="../../../static/css/normalize.css">
+	<link rel="stylesheet" th:href="@{/css/diagnosis/style.css}" href="../../../static/css/diagnosis/style.css">
+
+	<link rel="stylesheet" th:href="@{/css/test/testResult.css}" href="../../../static/css/test/testResult.css">
+</head>
+<body class="page-result">
+	<div class="screen nav">
+		<header class="nav-com">
+			<a href="index.html" th:href="@{/}">
+				<img class="title-logo"
+					 src="../../../static/images/diagnosis/title.png"
+					 th:src="@{/images/diagnosis/title.png}"
+					 alt="TOPへ">
+			</a>
+			<h1 class="title">診断結果</h1>
+
+			<div class="menu-wrapper">
+				<button type="button"
+						class="menu-button"
+						onclick="toggleMenu()"
+						aria-label="メニューを開く">
+					☰
+				</button>
+
+				<nav id="menu" class="menu-list">
+					<a th:href="@{/}" href="index.html">TOP</a>
+					<a th:href="@{/questions}" href="#">診断</a>
+					<!--<a th:href="@{/result}" href="#">診断結果</a>-->
+					<a th:href="@{/characters}" href="#">キャラクター一覧</a>
+					
+					<a th:href="@{/users}" href="#">ユーザー一覧</a>
+				</nav>
+			</div>
+		</header>
+
+		<main class="result-main">
+			<div class="result-layout">
+
+				<div class="result-image">
+					<img th:src="@{'/'+${character?.resultImagePath}}"
+						 src="../../../static/images/diagnosis/test/tanjiro.png"
+						 alt="キャラ画像">
+				</div>
+
+				<section class="result-box">
+					<p class="lead">あなたにいちばん近いキャラは…</p>
+					<p class="result-name"
+					   th:text="${character?.familyName}+' '+${character?.firstName}">
+						竈門 炭治郎
+					</p>
+
+
+
+					<!-- ======================================
+					     相性
+					     matchRate がある場合だけ表示
+					     ====================================== -->
+
+					<div class="match"
+						 th:if="${matchRate != null}">
+
+						<p class="match-text">
+
+							相性
+
+							<strong th:text="${matchRate}">
+								92
+							</strong>
+
+							%
+
+						</p>
+
+
+						<div class="bar">
+
+							<span
+								th:style="'width:' + ${matchRate} + '%'"
+								style="width:92%">
+							</span>
+
+						</div>
+
+					</div>
+
+
+
+					<!-- ======================================
+					     キャラクター説明
+					     ====================================== -->
+
+					<p class="result-desc"
+					   th:text="${character?.descriptionResult}">
+
+						キャラ説明文
+
+					</p>
+
+
+
+					<!-- ======================================
+					     ボタン
+					     ====================================== -->
+
+					<div class="btn-row">
+
+						<!-- もう一度診断 -->
+						<a class="btn btn-main"
+						   th:href="@{/questions}"
+						   href="#">
+
+							もう一度診断する
+
+						</a>
+
+
+						<!-- キャラクター一覧 -->
+						<a class="btn btn-sub"
+						   th:href="@{/characters}"
+						   href="#">
+
+							キャラ一覧
+
+						</a>
+						
+						<!--  -->
+						<a class="btn btn-sub"
+						   th:href="@{/users}"
+						   href="#">
+
+							ユーザー一覧
+
+						</a>
+
+					</div>
+
+
+				</section>
+
+			</div>
+
+		</main>
+
+
+
+		<!-- ==================================================
+		     フッター
+		     ================================================== -->
+
+		<footer class="footer">
+
+
+			<!-- ロゴをクリックするとTOPへ -->
+			<a th:href="@{/}" href="index.html">
+
+				<img src="../../static/images/logo.png"
+					 th:src="@{/images/logo.png}"
+					 alt="TOPへ">
+
+			</a>
+
+
+			<!-- コピーライト -->
+			<p class="copyright">
+
+				<small>
+					&copy;Copyright 2026 304_メタモン
+				</small>
+
+			</p>
+
+
+		</footer>
+
+
 	</div>
 
-	<ul th:unless="${#lists.isEmpty(results)}">
-		<li th:each="r : ${results}">
-			<img th:src="@{${characters[r.characterId].resultImagePath}}" alt="キャラクター画像" width="200">
-			<h2>
-				<span th:text="${characters[r.characterId].familyName}">竈門</span>
-				<span th:text="${characters[r.characterId].firstName}">炭治郎</span>
-			</h2>
-			<p th:text="${characters[r.characterId].descriptionResult}">診断結果の説明文</p>
-			診断日時：<span th:text="${#temporals.format(r.diagnosedAt, 'yyyy/MM/dd HH:mm')}">2026/10/06 14:00</span>
-		</li>
-	</ul>
 
-	<a th:href="@{/}">トップへ戻る</a>
+
+	<!-- ==================================================
+	     メニュー開閉用JavaScript
+	     ================================================== -->
+
+	<script>
+
+		function toggleMenu() {
+
+			const menu = document.getElementById("menu");
+
+			menu.classList.toggle("open");
+
+		}
+
+	</script>
+
+
 </body>
 </html>

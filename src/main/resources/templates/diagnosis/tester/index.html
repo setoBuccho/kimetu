@@ -6,8 +6,8 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
-	<link rel="stylesheet" th:href="@{css/normalize.css}" href="../../../resources/static/css/normalize.css">
-	<link rel="stylesheet" th:href="@{css/diagnosis/style.css}" href="../../../static/css/diagnosis/style.css">
+	<link rel="stylesheet" th:href="@{/css/normalize.css}" href="../../../static/css/normalize.css">
+	<link rel="stylesheet" th:href="@{/css/diagnosis/style.css}" href="../../../static/css/diagnosis/style.css">
 	
 </head>
 
@@ -22,7 +22,7 @@
 			
 			<nav class="link-btn">
 				<section class="col">
-					<a th:href="@{/test/questions}" href="questions.html">
+					<a th:href="@{/test/question}" href="question.html">
 						<span class="title">診断をはじめる</span><br>
 						<span class="arrow">↓</span>
 					</a>
@@ -38,7 +38,7 @@
 		</main>
 		
 		<footer class="footer">
-			<a th:href="@{/}" href="index.html">
+			<a th:href="@{/test}" href="index.html">
 				<img src="../../../static/images/logo.png" th:src="@{images/logo.png}"　atl="TOPへ">
 			</a>
 			<p class="copyright"><small>&copy;Copyright 2026 304_メタモン</small></p>

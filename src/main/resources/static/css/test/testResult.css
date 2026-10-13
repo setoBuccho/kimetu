@@ -2,332 +2,387 @@
 
 /* ============================================
    診断結果ページ専用CSS（result.html 用）
-   構成：ヘッダー（帯）／ 左:キャラ画像・右:診断結果 ／ フッター（帯）
-   ※ <body class="page-result"> のページにだけ効く
+   構成：ヘッダー／メイン（キャラ画像＋診断結果）／フッター
+   ※ <body class="page-result"> のページにだけ適用
    ============================================ */
 
-/* ---------- 1. ページ全体の土台 ---------- */
+
+/* ---------- 1. ページ全体 ---------- */
+
 html:has(body.page-result),
 body.page-result {
-	margin: 0;
-	padding: 0;
-	background: none;                 /* style.css の背景を消す */
-	color: #222;
-	font-family: "Shippori Mincho", "游明朝", serif;
+    margin: 0;
+    padding: 0;
+    color: #222;
+    font-family: "Shippori Mincho", "游明朝", serif;
+    background: #efeeea;
+    min-height: 100vh;
 }
 
-/* 画面が広いとき、メインの左右に見える色（和紙に近い色） */
-body.page-result { background-color: #efeeea; }
 
-/* ---------- 2. 全体の枠：ヘッダー・メイン・フッターを縦に並べる ---------- */
+/* ---------- 2. ページ全体のレイアウト ---------- */
+
 body.page-result .screen {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	width: 100%;
-	max-width: none;
-	margin: 0;
-	padding: 0;
-	background: none;
-	border: none;
-	box-shadow: none;
-	border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 
-/* ---------- 3. ヘッダー：ロゴは左上、タイトルは帯のど真ん中 ---------- */
+
+/* ---------- 3. ヘッダー ---------- */
+
 body.page-result header {
-	position: relative;               /* タイトルを重ねる基準 */
-	display: flex;
-	align-items: center;
-	justify-content: flex-start;      /* ロゴを左寄せ */
-	min-height: 64px;
-	width: 100%;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 8px 16px;
-	background: #f5f2ec;              /* 単色の帯（背景の柄と被らない） */
-	border-bottom: 1px solid #ddd;
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 64px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 8px 16px;
+    background: #f5f2ec;
+    border-bottom: 1px solid #ddd;
 }
+
 body.page-result header .title-logo {
-	display: block;
-	height: 48px;
-	width: auto;
-	margin: 0;
+    display: block;
+    height: 48px;
+    width: auto;
+    margin: 0;
 }
+
 body.page-result header .title {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%); /* 帯の真ん中にそろえる */
-	width: auto;
-	margin: 0;
-	padding: 0;
-	font-family: "Zen Antique", serif;
-	font-size: 18px;
-	white-space: nowrap;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    margin: 0;
+    padding: 0;
+    font-family: "Zen Antique", serif;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
 }
 
-/* ---------- 4. メイン：ここだけ和紙の背景（帯と被らない）・レスポンシブ ----------
-   背景画像（横長）を、画面の形に合わせて見せ方を切り替える
-   ・縦長／ほぼ正方形の画面：枠いっぱいに拡大（切れるのは左右だけ。上下の帯は残る）
-   ・横長の画面          ：高さにぴったり合わせて、足りない左右は同じ画像を並べる
-   どちらも画像を歪めず、上下の帯が必ず全部見える */
-body.page-result .result-main {
-	flex: 1 0 auto;                   /* ヘッダーとフッターの間をすべて使う */
-	display: flex;
-	align-items: center;              /* 中身を上下中央に */
-	justify-content: center;          /* 中身を左右中央に */
-	box-sizing: border-box;
-	width: 100%;                      /* 画面の横幅いっぱい */
-	margin: 0;
 
-	/* 背景の上下の帯（オレンジ・市松模様）に重ならないよう余白を取る */
-	padding: clamp(70px, 22vh, 220px) 16px;
-
-	/* 背景画像（このCSSの場所 static/css/test/ から見た相対パス） */
-	background-image: url("../../images/diagnosis/test/back6.jpg");
-	background-size: cover;           /* 基本：枠いっぱいに拡大 */
-	background-position: center;
-	background-repeat: no-repeat;
-	background-color: #efeeea;        /* 画像が読み込めないときの色 */
-}
-
-/* ---------- 4. メイン：背景画像を1枚だけ表示 ---------- */
-body.page-result {
-	margin: 0;
-	padding: 0;
-	min-height: 100vh;
-	background: #efeeea;
-}
+/* ---------- 4. メイン ---------- */
 
 body.page-result .result-main {
-	position: relative;
-	z-index: 0;
-
-	flex: 1 0 auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	width: 100%;
-	box-sizing: border-box;
-	margin: 0;
-	padding: clamp(70px, 22vh, 220px) 16px;
-
-	background: none;
+    position: relative;
+    z-index: 0;
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: clamp(70px, 22vh, 220px) 16px;
+    background: none;
 }
 
-/* 背景画像 */
+/* メイン部分の和紙背景 */
 body.page-result .result-main::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: -1;
-
-	background-image: url("../../images/diagnosis/test/back6.jpg");
-	background-size: 100% 100%;
-	background-position: center;
-	background-repeat: no-repeat;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../../images/diagnosis/test/back6.jpg");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* ---------- 5. 左右のレイアウト（左：画像／右：診断結果） ---------- */
+
+/* ---------- 5. 診断結果のレイアウト ---------- */
+
 .result-layout {
-	display: flex;
-	gap: 28px;
-	align-items: stretch;
-	width: min(100%, 1000px);
+    display: flex;
+    gap: 28px;
+    align-items: stretch;
+    width: min(100%, 1000px);
 }
 
-/* 左：キャラクター画像（縦長の枠） */
+
+/* キャラクター画像 */
 .result-image {
-	flex: 0 0 40%;
-	aspect-ratio: 4 / 5;
-	border-radius: 12px;
-	overflow: hidden;
-	background: #fff;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+    flex: 0 0 40%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border: 3px solid #c9a227;
+    outline: 1px solid #c9a227;
+    outline-offset: 5px;
+    background-image:
+        radial-gradient(
+            circle at 50% 35%,
+            #f4fbf6 0%,
+            #bfe3cf 60%,
+            rgb(255, 255, 128) 100%
+        ),
+        repeating-conic-gradient(
+            #1c1c1c 0% 25%,
+            #2e8b6a 0% 50%
+        );
+    background-origin: border-box;
+    background-size: auto, 20px 20px;
+    box-shadow: 0 8px 24px rgba(80, 20, 20, .4);
 }
+
 .result-image img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;                /* 枠いっぱいに表示（はみ出し部分は切る） */
-	object-position: center top;      /* 顔が切れにくいよう上を基準に */
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    mix-blend-mode: normal;
 }
 
-/* 右：診断結果 */
+
+/* 診断結果 */
 .result-box {
-	flex: 1;
-	box-sizing: border-box;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;          /* 中身を上下中央に */
-	background: rgba(255, 255, 255, 0.85);   /* 少し透けた白 */
-	border-radius: 12px;
-	box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+    flex: 1;
+    box-sizing: border-box;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 253, 247, 0.92);
+    border: 1px solid #1c1c1c;
+    outline: 1px solid #c9a227;
+    outline-offset: -8px;
+    border-radius: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
 }
+
 .lead {
-	margin: 0 0 8px;
-	font-size: 14px;
-	letter-spacing: .1em;
+    margin: 0 0 8px;
+    font-size: 14px;
+    letter-spacing: .1em;
 }
+
 .result-name {
-	margin: 0 0 12px;
-	font-family: "Zen Antique", serif;
-	font-size: 28px;
+    margin: 0 0 12px;
+    padding-left: 0;
+    font-family: "Zen Antique", serif;
+    font-size: 32px;
+    letter-spacing: 0.08em;
 }
+
+.result-name::after {
+    content: "";
+    display: block;
+    height: 3px;
+    margin-top: 8px;
+    background: linear-gradient(90deg, #c9a227, transparent);
+}
+
 .result-desc {
-	margin: 0 0 16px;
-	font-size: 14px;
-	line-height: 1.8;
+    margin: 0 0 16px;
+    font-size: 14px;
+    line-height: 1.8;
 }
 
-/* 相性（％）とバー */
-.match { margin: 0 0 12px; }
-.match-text { margin: 0 0 4px; font-size: 14px; }
-.match-text strong { font-size: 24px; color: #d9381e; }   /* 数字を大きく赤く */
+
+/* 相性 */
+.match {
+    margin: 0 0 12px;
+}
+
+.match-text {
+    margin: 0 0 4px;
+    font-size: 14px;
+}
+
+.match-text strong {
+    font-size: 24px;
+    color: #d9381e;
+}
+
 .bar {
-	height: 10px;
-	border-radius: 5px;
-	background: #e6e1d8;              /* バーの土台 */
-	overflow: hidden;
+    height: 10px;
+    border-radius: 5px;
+    background: #e6e1d8;
+    overflow: hidden;
 }
+
 .bar span {
-	display: block;
-	height: 100%;
-	background: linear-gradient(90deg, #f5a623, #d9381e);  /* オレンジ→赤 */
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #f5a623, #d9381e);
 }
 
-/* ボタン */
-.btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- 6. ボタン ---------- */
+
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
 .btn {
-	display: inline-block;
-	padding: 10px 18px;
-	border-radius: 24px;
-	font-size: 14px;
-	font-weight: 600;
-	text-decoration: none;
-	transition: transform .15s;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .15s;
 }
-.btn:hover  { transform: scale(1.05); }
-.btn:active { transform: scale(0.96); }
-.btn-main { background: #222; color: #fff; }
-.btn-sub  { background: #fff; color: #222; border: 1px solid #222; }
 
-/* ---------- 6. フッター：単色の帯、TOPとコピーライトを中央に ---------- */
-/* ---------- フッター ---------- */
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn-main {
+    background: #222;
+    color: #fff;
+}
+
+.btn-sub {
+    background: #fff;
+    color: #222;
+    border: 1px solid #222;
+}
+
+
+/* ---------- 7. フッター ---------- */
 
 body.page-result .footer {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-
-	width: 100%;
-	box-sizing: border-box;
-
-	margin: 0;
-	padding: 10px 16px;
-
-	background: #f5f2ec;
-	border-top: 1px solid #ddd;
-
-	text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 8px 16px;
+    background: #f5f2ec;
+    border-top: 1px solid #ddd;
+    text-align: center;
 }
 
-
-/* フッターのTOPロゴ */
-body.page-result .footer img {
-	display: block;
-
-	width: auto;
-	height: 40px;
-
-	max-width: 150px;
-
-	object-fit: contain;
-}
-
-
-/* TOPロゴのリンク */
 body.page-result .footer a {
-	display: block;
-	text-decoration: none;
+    display: block;
+    text-decoration: none;
 }
 
+body.page-result .footer img {
+    display: block;
+    width: auto;
+    height: 40px;
+    max-width: 150px;
+    object-fit: contain;
+}
 
-/* コピーライト */
 body.page-result .copyright {
-	margin: 4px 0 0;
-
-	font-size: 11px;
-	color: #666;
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: #666;
 }
 
-/* ---------- 7. 画面が狭いとき（スマホ）：上に画像、下に診断結果 ---------- */
-@media (max-width: 640px) {
-	.result-layout { flex-direction: column; align-items: center; }
-	.result-image  { flex: none; width: min(70%, 260px); }   /* 画像は小さめに */
-	.result-box    { width: 100%; }
-	.result-name   { font-size: 24px; }
-	body.page-result header .title-logo { height: 36px; }
-	body.page-result header .title      { font-size: 14px; }
-}
+
+/* ---------- 8. ハンバーガーメニュー ---------- */
+
 body.page-result .menu-wrapper {
-	position: absolute;
-	top: 8px;
-	right: 16px;
-	z-index: 1000;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: 1000;
 }
 
 body.page-result .menu-button {
-	width: 48px;
-	height: 48px;
-	padding: 0;
-	background: #f5f2ec;
-	border: 1px solid #333;
-	border-radius: 6px;
-	font-size: 28px;
-	line-height: 1;
-	cursor: pointer;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    background: #f5f2ec;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
 }
 
 body.page-result .menu-button:hover {
-	background: #e8e4dc;
+    background: #e8e4dc;
 }
 
 body.page-result .menu-list {
-	display: none;
-	position: absolute;
-	top: 52px;
-	right: 0;
-	width: 180px;
-	background: rgba(255, 253, 247, 0.98);
-	border: 1px solid #333;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-	z-index: 1001;
+    display: none;
+    position: absolute;
+    top: 52px;
+    right: 0;
+    width: 180px;
+    background: rgba(255, 253, 247, 0.98);
+    border: 1px solid #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 1001;
 }
 
 body.page-result .menu-list.open {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 body.page-result .menu-list a {
-	display: block;
-	padding: 14px 18px;
-	color: #222;
-	font-family: "Shippori Mincho", serif;
-	font-size: 15px;
-	text-decoration: none;
-	border-bottom: 1px solid #ddd;
+    display: block;
+    padding: 14px 18px;
+    color: #222;
+    font-family: "Shippori Mincho", serif;
+    font-size: 15px;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
 }
 
 body.page-result .menu-list a:last-child {
-	border-bottom: none;
+    border-bottom: none;
 }
 
 body.page-result .menu-list a:hover {
-	background: #eee9df;
+    background: #eee9df;
+}
+
+
+/* ---------- 9. スマホ表示 ---------- */
+
+@media (max-width: 640px) {
+    .result-layout {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .result-image {
+        flex: none;
+        width: min(70%, 260px);
+    }
+
+    .result-box {
+        width: 100%;
+    }
+
+    .result-name {
+        font-size: 24px;
+    }
+
+    body.page-result header .title-logo {
+        height: 36px;
+    }
+
+    body.page-result header .title {
+        font-size: 14px;
+    }
 }

@@ -18,13 +18,13 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UsersServiceImpl implements UsersService  {
-	
+public class UsersServiceImpl implements UsersService {
+
     private final UserMapper userMapper;
-  //追加  
     private final DiagnosisResultsMapper diagnosisResultsMapper;
     private final CharacterMapper characterMapper;
     private final UserEditHelper userEditHelper;
+
     @Override
     public List<Users> getAllUsers() {
         return userMapper.findAll();
@@ -39,6 +39,12 @@ public class UsersServiceImpl implements UsersService  {
     public void saveUser(Users user) {
         userMapper.insert(user);
     }
+
+    @Override
+    public void updateUser(Users user) {
+        userMapper.update(user);
+    }
+
     /** ユーザー一覧を診断結果付きで取得 */
     @Override
     public List<UserEditForm> getUserList() {
@@ -63,7 +69,6 @@ public class UsersServiceImpl implements UsersService  {
                 Characters character =
                         characterMapper.findById(latestResult.getCharacterId());
 
-
                 if (character != null) {
                     form.setDiagnosisResult(
                             character.getFamilyName() + character.getFirstName()
@@ -86,8 +91,9 @@ public class UsersServiceImpl implements UsersService  {
         // その後ユーザーを削除
         userMapper.deleteById(id);
     }
-	
-
-	
-
+    
+    @Override
+    public Users findUserByName(String name) {
+        return userMapper.findByName(name);
+    }
 }

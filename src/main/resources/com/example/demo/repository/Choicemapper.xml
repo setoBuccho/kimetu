@@ -4,10 +4,50 @@
 	
 	<!-- 特定の質問にぶら下がる選択肢だけをまとめて取得（質問画面を表示するときに使用） -->
 	<select id="findByQuestionId" resultType="com.example.demo.entity.Choices">
-		SELECT id, questions_id AS questionsId, characters_id AS charactersId, body
-		FROM choices
-		WHERE questions_id = #{questionsId}
-		ORDER BY id
-	</select>
+
+    <!-- 有木：質問画面で使う選択肢を取得する -->
+    <!-- 有木：DBのカラム名をChoices.javaのフィールド名に合わせる -->
+    SELECT id,
+           questions_id AS questionId,
+           characters_id AS characterId,
+           CONCAT(characters_id, body) body
+
+    FROM choices
+
+    WHERE questions_id = #{questionId}
+
+    ORDER BY id
+
+</select>
+	
+	<select id="findById" resultType="com.example.demo.entity.Choices">
+
+    <!-- 有木：DBのカラム名をChoices.javaのフィールド名に合わせて取得する -->
+    <!-- 有木：characters_id → characterId にすることで、診断結果のキャラクターIDを正しく取得する -->
+    SELECT id,
+           questions_id AS questionId,
+           characters_id AS characterId,
+           body
+
+    FROM choices
+
+    WHERE id = #{id}
+
+</select>
+	
+<!-- 有木：最終質問で、15問の診断結果が同点になったキャラクターの選択肢だけ取得する -->
+<select id="findFinalChoices" resultType="com.example.demo.entity.Choices">
+    SELECT id,
+           questions_id AS questionId,
+           characters_id AS characterId,
+           CONCAT(characters_id, body) body
+    FROM choices
+    WHERE questions_id = #{questionId}
+      AND characters_id IN
+      <foreach collection="characterIds" item="characterId" open="(" separator="," close=")">
+          #{characterId}
+      </foreach>
+    ORDER BY id
+</select>
 	
 </mapper>

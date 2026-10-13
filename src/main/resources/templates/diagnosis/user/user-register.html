@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー登録</title>
+	<link rel="stylesheet" th:href="@{/css/user/user.css}">
+</head>
+
+<body>
+
+    <main class="register-screen">
+
+		<div class="register-title">
+			<p>※絵・ライアン</p>
+		    <img src="/images/diagnosis/characters/old/etc/tannjiro.jpg" alt="竈門炭治郎">
+
+		    <h1>ユーザー登録</h1>
+
+		    <img src="/images/diagnosis/characters/old/etc/nezuko.jpg" alt="竈門禰豆子">
+		</div>
+
+		<form class="register-form"
+		      th:action="@{/user/register}" method="post">
+
+        <div>
+            <label for="name">名前</label>
+            <input type="text" id="name" name="name">
+        </div>
+
+		<div class="profile-area">
+		    <label for="body">プロフィール・自由記入欄</label>
+
+		    <div class="profile-input">
+		        <textarea id="body"
+		                  name="body"
+		                  rows="8"></textarea>
+
+		      
+		    </div>
+		</div>
+
+		<button type="submit" class="register-button">
+		    <img src="/images/diagnosis/test/giyu.png" alt="冨岡義勇">
+		    <span>登録する</span>
+		</button>
+
+    </form>
+	</main>
+</body>
+</html>

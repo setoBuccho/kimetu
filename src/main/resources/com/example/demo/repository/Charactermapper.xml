@@ -19,7 +19,8 @@
 	
 	<!-- IDでキャラクターを1件取得（診断結果画面にキャラ情報を貼り付けるために使用） -->
 	<select id="findById" resultType="com.example.demo.entity.Characters">
-		SELECT id,
+		SELECT
+		id,
 		family_name AS familyName,
 		first_name AS firstName,
 		family_name_kana AS familyNameKana,

@@ -10,4 +10,5 @@ public interface DiagnosisResultsService {
 
     void saveDiagnosisResult(Diagnosis_results diagnosisResult);
 
+    void overwriteDiagnosisResult(Diagnosis_results diagnosisResult);
 }

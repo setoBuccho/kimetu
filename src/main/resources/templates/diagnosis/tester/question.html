@@ -4,20 +4,59 @@
 	<meta charset="UTF-8">
 	<title>キャラクター診断 | TOP</title>
 	
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="stylesheet" th:href="@{css/normalize.css}" href="../../../resources/static/css/normalize.css">
-	<link rel="stylesheet" th:href="@{css/diagnosis/style.css}" href="../../../resources/static/css/diagnosis/style.css">
+	<link rel="stylesheet" th:href="@{/css/normalize.css}" href="../../../../resources/static/css/normalize.css">
+	<link rel="stylesheet" th:href="@{/css/diagnosis/style.css}" href="../../../../resources/static/css/diagnosis/style.css">
 	
 </head>
 <body>
 	<div class="screen">
-		
+		<header>
+			<a href="index.html" th:href="@{/test}">
+				<img class="title-logo" src="../../../static/images/diagnosis/title.png" th:src="@{/images/diagnosis/title.png}">
+			</a>
+			<h1 class="title">診断！</h1>
+		</header>
+			
+			<!-- 送信先を /diagnosis/submit に指定 -->
+			<!-- 有木：今は同点判定を含むテスト用Controllerへ送る -->
+			<form th:action="@{/test/diagnosis/submit}"
+			      th:object="${diagnosisForm}"
+			      method="post">
+				
+				<!-- 質問のループ -->
+				<div class="question" th:each="entry : ${map}">
+					
+					<!– 質問文 (questions.body) -->
+					<h2 class="question-title">
+						<span th:text="${entry.key.body}">ここに質問文が入ります</span>
+					</h2>
+					
+					<!-- 選択肢のループ -->
+					<div th:each="choice, iterStat : ${entry.value}">
+						
+						<label class="choice">
+							<!-- th:field を使うことで、選択された choice.id が 
+							  diagnosisForm.selectedChoiceIds に自動的にリストとして格納されます -->
+							<input type="radio"
+									th:field="*{selects[__${entry.key.id}__]}"
+									th:value="${choice.id}"
+									th:required="${iterStat.first}" />
+							
+							<!-- 選択肢の文章 (choices.body) -->
+							<span th:text="${choice.body}">ここに選択肢が入ります</span>
+						</labelc>
+					</div>
+				</div>
+				<button type="submit">診断する</button>
+			</form>
+
 		
 		
 		<footer class="footer">
 			<a th:href="@{/}" href="index.html">
-				<img src="../../static/images/logo.png" th:src="@{images/logo.png}"　atl="TOPへ">
+				<img src="../../../static/images/logo.png" th:src="@{/images/logo.png}"　atl="TOPへ">
 			</a>
 			<p class="copyright"><small>&copy;Copyright 2026 304_メタモン</small></p>
 		</footer>

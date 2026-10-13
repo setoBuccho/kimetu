@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DiagnosisForm {
 //	private List<Integer> selectedChoiceIds;
-	
+	   private String name;
+
 	private Map<Integer, Integer> selects = new HashMap<>();
 	
 //	public List<Integer> getSelectedChoiceIds() { return selectedChoiceIds; }

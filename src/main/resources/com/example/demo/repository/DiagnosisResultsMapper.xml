@@ -19,5 +19,12 @@
 		INSERT INTO diagnosis_results (users_id, characters_id)
 		VALUES (#{userId}, #{characterId})
 	</insert>
+	
+	<!-- 追加 -->
+	<!-- ユーザーに紐づく診断結果を削除 -->
+    <delete id="deleteByUserId">
+    DELETE FROM diagnosis_results
+    WHERE users_id = #{userId}
+   </delete>
 
 </mapper>
