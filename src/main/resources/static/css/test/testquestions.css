@@ -388,9 +388,9 @@ body.page-characters .character-top-right {
     right: 10px;
 
     /* 画面幅に応じて縮小 */
-    width: clamp(70px, 12vw, 190px);
-    height: auto;
 
+    width: clamp(80px, 14vw, 220px);
+    height: auto;
     z-index: 0;
     pointer-events: none;
 }
@@ -401,21 +401,15 @@ body.page-characters .character-top-right img {
     height: auto;
 }
 
-
-
 /* ============================================
    左下のミニキャラクター
    ============================================ */
-
 body.page-characters .character-decoration {
     position: fixed;
-
     left: -20px;
     bottom: 0; /* 画面の一番下に固定 */
-
-    width: clamp(70px, 15vw, 190px);
+    width: clamp(80px, 17vw, 220px);
     height: auto;
-
     z-index: 0;
     pointer-events: none;
 }
