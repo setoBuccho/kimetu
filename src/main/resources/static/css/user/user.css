@@ -660,6 +660,7 @@ body {
     border: none;
     box-shadow: none;
     cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 /* ボタン画像 */
@@ -675,6 +676,34 @@ body {
 .edit-save-button:hover,
 .edit-top-button:hover {
     opacity: 0.8;
+    transform: translateY(-3px);
+    transition: 0.2s;
+}
+/* 保存・TOPボタン：クリック時の枠線を統一 */
+.edit-save-button:focus,
+.edit-top-button:focus {
+    outline: none;
+    box-shadow: none;
+}
+/* 編集画面：保存・TOPボタンの見た目を完全に統一 */
+.register-screen .edit-save-button,
+.register-screen .edit-top-button {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent !important;
 }
 
+.register-screen .edit-save-button:focus,
+.register-screen .edit-save-button:active,
+.register-screen .edit-save-button:focus-visible,
+.register-screen .edit-top-button:focus,
+.register-screen .edit-top-button:active,
+.register-screen .edit-top-button:focus-visible {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
 
