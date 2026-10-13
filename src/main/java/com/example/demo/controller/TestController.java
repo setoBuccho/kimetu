@@ -153,10 +153,10 @@ public class TestController {
 		model.addAttribute("character", resultCharacter);
 		return "diagnosis/result";
 	}
-//
-//	@GetMapping("/username")
-//	public String usernameView() {
-//		return "diagnosis/username";
-//	}
+
+	@GetMapping("/username")
+	public String usernameView() {
+		return "diagnosis/username";
+	}
 }
 
