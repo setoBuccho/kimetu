@@ -179,83 +179,29 @@ body.page-characters .choice input[type="radio"] {
 }
 
 
-/* ------------------------------------------------
-   診断ボタン
-   ------------------------------------------------ */
-
-   .button-area {
-       display: flex;
-       justify-content: center;
-       align-items: center;
-
-       margin: 14px 0 22px;
-   }
-
-   .diagnosis-button {
-       position: relative;
-
-       width: 190px;
-       height: 54px;
-
-       background: #b3432b;
-       color: #fff;
-
-       border: 1px solid #8f3322;
-       border-radius: 2px;
-
-       font-family: "Zen Old Mincho", "Noto Serif JP", serif;
-       font-size: 18px;
-       font-weight: 600;
-
-       letter-spacing: 0.2em;
-
-       cursor: pointer;
-
-       box-shadow:
-           0 3px 0 #7d2b1d,
-           0 0 0 2px #f6f3ee inset;
-
-       transition: 0.2s;
-   }
-
-   .diagnosis-button:hover {
-       background: #963824;
-   }
-
-   .diagnosis-button:active {
-       transform: translateY(3px);
-       box-shadow:
-           0 0 0 #7d2b1d,
-           0 0 0 2px #f6f3ee inset;
-   }
-
    /* ============================================
       ヘッダー
       ============================================ */
 
-
-	  /* ヘッダーの高さ */
 	  body.page-characters header {
-	      position: relative;
-	      display: flex;
-	      align-items: center;
-	      justify-content: flex-start;
 
-	      width: 100%;
-	      height: 75px;
-	      min-height: 75px;
-	      box-sizing: border-box;
+	  	position: sticky;               /* タイトルを重ねる基準 */
 
-	      margin: 0;
-	      padding: 8px 24px;
-
-	      background: #f5f2ec;
-	      border: none;
-	      border-bottom: 1px solid #ddd;
-	      border-radius: 0;
-	      box-shadow: none;
+	  	display: flex;
+	  	align-items: center;              /* ロゴを上下中央に */
+	  	justify-content: flex-start;      /* ロゴを左寄せ */
+	  	min-height: 64px;
+	  	width: 100%;
+	  	max-width: none;
+	  	box-sizing: border-box;
+	  	margin: 0;
+	  	padding: 8px 16px;
+	  	background: #f5f2ec;              /* 帯の色（好きな色に変更OK） */
+	  	border: none;
+	  	border-bottom: 1px solid #ddd;
+	  	border-radius: 0;
+	  	box-shadow: none;
 	  }
-
 
    /* 左上のロゴ */
    body.page-characters header .titlelogo,
@@ -509,18 +455,17 @@ body.page-characters .menu-wrapper {
 
 /* ☰ ボタン */
 body.page-characters .menu-button {
+	width: 48px;
+	height: 48px;
+	padding: 0;
 
-    width: 56px;
-    height: 56px;
-    padding: 0;
+	background: #f5f2ec;
+	border: 1px solid #333;
+	border-radius: 6px;
 
-    background: #f5f2ec;
-    border: 1px solid #555;
-    border-radius: 7px;
-
-    font-size: 30px;
-    line-height: 1;
-    cursor: pointer;
+	font-size: 28px;
+	line-height: 1;
+	cursor: pointer;
 }
 
 body.page-characters .menu-button:hover {
@@ -529,19 +474,20 @@ body.page-characters .menu-button:hover {
 
 /* リンク一覧：初期状態では非表示 */
 body.page-characters .menu-list {
-    display: none;
+	display: none;
 
-    position: absolute;
-    top: 62px;
-    right: 0;
+	position: absolute;
+	top: 52px;
+	right: 0;
 
-    width: 210px;
-    background: rgba(255, 253, 247, 0.98);
+	width: 180px;
 
-    border: 1px solid #333;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+	background: rgba(255, 253, 247, 0.98);
 
-    z-index: 1001;
+	border: 1px solid #333;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+	z-index: 1001;
 }
 
 /* メニューを開いた状態 */
@@ -552,23 +498,29 @@ body.page-characters .menu-list.open {
 
 /* 各リンク */
 body.page-characters .menu-list a {
-    display: block;
-    padding: 18px 20px;
 
-    color: #333;
-    font-family: "Shippori Mincho", serif;
-    font-size: 16px;
-    text-decoration: none;
+	display: block;
 
-    border-bottom: 1px solid #ddd;
+	padding: 14px 18px;
+
+	color: #222;
+	font-family: "Shippori Mincho", serif;
+	font-size: 15px;
+	text-align: left;          /* ← 追加：文字を左寄せ */
+	text-decoration: none;
+
+	border-bottom: 1px solid #ddd;
 }
 
+/* 最後の線を消す */
 body.page-characters .menu-list a:last-child {
-    border-bottom: none;
+	border-bottom: none;
 }
 
+/* マウスを乗せたとき */
 body.page-characters .menu-list a:hover {
-    background: #eee9df;
+	background: #eee9df;
+
 }
 
 /* スマホ */
