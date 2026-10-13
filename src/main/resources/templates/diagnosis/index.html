@@ -39,20 +39,20 @@
 			</section>
 
 			<section class="col">
-				<a class="char-link" th:href="@{/user/register}" href="/user/register">
+				<a  class="char-link" th:href="@{/users}" href="users.html">
 					<img th:src="@{/images/diagnosis/test/zenitsu.png}"
 					     src="../../static/images/diagnosis/test/zenitsu.png" alt="善逸">
-					<span class="label">ユーザー登録</span>
+					<span class="label">ユーザー一覧</span>
 				</a>
 			</section>
 		</nav>
 
 	</main>
 	<!-- 右端に吊るす伊之助（飾り）。クリックの邪魔にならないよう CSS で pointer-events を切ってある -->
-	<img class="inosuke"
-	     th:src="@{/images/diagnosis/test/inosuke_cut.png}"
-	     src="../../static/images/diagnosis/test/inosuke_cut.png"
-	     alt="伊之助">
-
+	<a th:href="@{/user/register}" href="user/user-register.html" aria-label="キャラ一覧を見る">
+		<img class="inosuke" th:src="@{/images/diagnosis/test/inosuke_cut.png}"
+		     src="../../static/images/diagnosis/test/inosuke_cut.png"
+		     alt="伊之助">
+	</a>
 </body>
 </html>

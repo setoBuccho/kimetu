@@ -22,4 +22,6 @@ public interface UserMapper {
  
     /** IDでユーザーを削除（退会処理：紐づく診断結果も自動で消えます） */
     int deleteById(long id);
+    
+    Users findByName(String name);
 }

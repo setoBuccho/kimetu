@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
@@ -9,7 +8,6 @@
 
     <link rel="stylesheet"
           th:href="@{/css/normalize.css}">
-
     <link rel="stylesheet"
           th:href="@{/css/diagnosis/style.css}">
 </head>
@@ -19,7 +17,7 @@
 <div class="screen">
 
     <header>
-        <!-- 有木：診断TOPへ戻るためのロゴ -->
+
         <a th:href="@{/test}">
             <img class="title-logo"
                  th:src="@{/images/diagnosis/title.png}"
@@ -27,37 +25,34 @@
         </a>
 
         <h1 class="title">最後の質問</h1>
-    </header>
 
+    </header>
 
     <main>
 
-        <!-- 有木：同点だったキャラクターを決めるための最終質問 -->
         <div class="question">
 
-            <!-- 有木：16問目の質問文をDBから表示する -->
             <h2 class="question-title"
                 th:text="${question.body}">
                 最後の質問！あなたが一番大切にしたい気持ちは？
             </h2>
 
-
-            <!-- 有木：最終質問で選択できるキャラクターの選択肢を表示する -->
             <form th:action="@{/test/diagnosis/final}"
                   method="post">
 
-                <!-- 有木：同点キャラクターに対応した選択肢だけを表示する -->
+                <input type="hidden"
+                       name="userId"
+                       th:value="${userId}">
+
                 <div th:each="choice : ${choices}">
 
                     <label class="choice">
 
-                        <!-- 有木：選んだ最終回答のchoice.idをControllerへ送る -->
                         <input type="radio"
                                name="choiceId"
                                th:value="${choice.id}"
                                required>
 
-                        <!-- 有木：DBに登録した最終質問の選択肢文章を表示する -->
                         <span th:text="${choice.body}">
                             誰かの痛みに寄り添って、あきらめずに前へ進む気持ち
                         </span>
@@ -73,7 +68,6 @@
         </div>
 
     </main>
-
 
     <footer class="footer">
 
@@ -92,4 +86,5 @@
 </div>
 
 </body>
+
 </html>

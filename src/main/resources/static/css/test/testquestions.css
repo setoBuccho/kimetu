@@ -76,19 +76,11 @@ body.page-characters .footer {
    ------------------------------------------------ */
 
    body.page-characters .main-column {
-
        width: 1000px;
-
        min-height: 800px;
-
        margin: 155px auto 80px;
-
-       padding: 55px 60px;
-
+       padding: 0 0;
        box-sizing: border-box;
-
-       background: #f5f2ec !important;
-
    }
 
 
@@ -97,9 +89,10 @@ body.page-characters .footer {
    ------------------------------------------------ */
 
 body.page-characters .question {
-
     margin-bottom: 55px;
-
+	padding: 40px;
+	background: #f5f2ec;
+	border: 1px solid #222;
 }
 
 
@@ -256,7 +249,7 @@ body.page-characters .footer {
    （grid の列に頼らず、位置で直接指定する）
    ------------------------------------------------ */
 body.page-characters header {
-	position: relative;            /* タイトルを重ねる基準にする */
+	position: sticky;            /* タイトルを重ねる基準にする */
 	display: flex;                 /* 以前の grid 指定を打ち消す */
 	align-items: center;           /* ロゴを上下中央に */
 	justify-content: flex-start;   /* ロゴを左寄せ */

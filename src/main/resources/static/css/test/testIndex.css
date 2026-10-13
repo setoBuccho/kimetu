@@ -78,9 +78,9 @@ body {
 .char-link .label {
 	position: absolute;
 	top: 6%;
-	left: 6%;
+	left: 4%;
 	width: 88%;
-	height: 40%;                    /* ボード部分（画像の上半分弱） */
+	height: 31%;                    /* ボード部分（画像の上半分弱） */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -94,15 +94,28 @@ body {
 }
 
 /* ---------- 右端に吊るす伊之助 ---------- */
-.inosuke {
-	position: fixed;                /* 画面に固定 */
-	top: 0;                         /* 縄の上端を画面の一番上に */
+/*.inosuke {
+	position: fixed;                 画面に固定 
+	top: 0;                          縄の上端を画面の一番上に 
 	right: 3%;
 	height: min(70vh, 420px);
 	width: auto;
 	z-index: 5;
-	pointer-events: none;           /* 下のボタンのクリックを邪魔しない */
-	transform-origin: 64% 0;        /* 縄の位置を支点にする */
+	pointer-events: none;            下のボタンのクリックを邪魔しない 
+	transform-origin: 64% 0;         縄の位置を支点にする 
+	animation: inosuke-sway 4s ease-in-out infinite;
+}*/
+
+.inosuke {
+	position: fixed;
+	top: 0;
+	right: 3%;
+	height: min(70vh, 420px);
+	width: auto;
+	z-index: 5;
+	pointer-events: auto;           /* ← none から変更：クリックを受ける */
+	cursor: pointer;                /* ← 追加：マウスが指マークになる */
+	transform-origin: 64% 0;
 	animation: inosuke-sway 4s ease-in-out infinite;
 }
 @keyframes inosuke-sway {
@@ -128,7 +141,7 @@ body    { min-height: 100vh; min-height: 100dvh; }
 
 /* ---------- 大きな画面（PCなど）：ロゴとボタンを大きくする ---------- */
 @media (min-width: 1200px) {
-	.logo { width: 600px; }          /* ロゴを大きく */
+	.logo { width: 1300px; }          /* ロゴを大きく */
 	.col  { width: 220px; }          /* ボタンを大きく */
 	.link-btn { gap: 20px; }
 }

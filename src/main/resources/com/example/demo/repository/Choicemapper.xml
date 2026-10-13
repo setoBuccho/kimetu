@@ -10,7 +10,7 @@
     SELECT id,
            questions_id AS questionId,
            characters_id AS characterId,
-           CONCAT(characters_id, body) AS body
+           body
 
     FROM choices
 

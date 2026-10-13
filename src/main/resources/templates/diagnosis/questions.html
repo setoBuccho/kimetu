@@ -2,23 +2,23 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>キャラクター診断 | 質問選択</title>
 
-	<!-- normalize.css -->
-	<link rel="stylesheet"
-		  th:href="@{/css/normalize.css}"
-		  href="../../../resources/static/css/normalize.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<!-- 共通CSS -->
-	<link rel="stylesheet"
-		  th:href="@{/css/diagnosis/style.css}"
-		  href="../../../resources/static/css/diagnosis/style.css">
+    <title>キャラクター診断 | 質問選択</title>
 
-	<!-- キャラクター一覧ページ専用CSS -->
-	<link rel="stylesheet"
-		  th:href="@{/css/test/testquestions.css}"
-		  href="../../../resources/static/css/test/testquestions.css">
+    <link rel="stylesheet"
+          th:href="@{/css/normalize.css}"
+          href="../../../resources/static/css/normalize.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/diagnosis/style.css}"
+          href="../../../resources/static/css/diagnosis/style.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/test/testquestions.css}"
+          href="../../../resources/static/css/test/testquestions.css">
+
 </head>
 
 <body class="page-characters">
@@ -45,74 +45,98 @@
 	        alt="キャラクター">
 	</div>
 
-	<div class="screen">
+    <div class="screen">
 
-		<header>
-			<!-- 左側：ロゴ -->
-			<img
-				class="title-logo"
-				th:src="@{/images/diagnosis/title.png}"
-				src="../../static/images/diagnosis/title.png"
-				alt="鬼滅の刃診断">
+        <header>
 
-			<!-- 中央：タイトル -->
-			<h1 class="title">質問選択</h1>
-		</header>
+            <img
+                class="title-logo"
+                th:src="@{/images/diagnosis/title.png}"
+                src="../../static/images/diagnosis/title.png"
+                alt="鬼滅の刃診断">
 
-		<!-- ============================================
-			 質問エリア
-			 ============================================ -->
+            <h1 class="title">質問選択</h1>
 
-		<main class="main-column">
-			
-			<form th:action="@{/diagnosis/submit}" th:object="${diagnosisForm}" method="post">
-				
-				<!-- 質問1 -->
-				<div class="question" th:each="entry : ${map}">
-					
-					<h2 class="question-title">
-						<span th:text="${entry.key.body}">質問 1</span>
-					</h2>
-					
-					<div class="choices" th:each="choice, iterStat : ${entry.value}">
-	
-						<label class="choice">
-							
-							<input type="radio"
-									th:fieald="*{selects[__${entry.key.id}__]}"
-									th:value="${choice.id}"
-									th:requried="${iterStat.first}" />
-									
-							<span th:text="${choice.body}">[選択肢]</span>
-						</label>
-					</div>
-				</div>
-				
-				<!-- 診断ボタン -->
-				<div class="button-area">
-					<button type="submit"
-							class="diagnosis-button">
-						診断する
-					</button>
-				</div>
-			</form>
-			
-		</main>
-		
-		<footer class="footer">
+        </header>
 
-			<a
-				class="top-link"
-				th:href="@{/}"
-				href="index.html">
+        <main class="main-column">
 
-				TOP
+            <form th:action="@{/diagnosis/submit}"
+                  th:object="${diagnosisForm}"
+                  method="post">
 
-			</a>
+                <div class="question">
 
-		</footer>
+                    <h2 class="question-title">
+                        名前を入力してください
+                    </h2>
 
-	</div>
+                    <div class="choices">
+
+                        <input type="text"
+                               th:field="*{name}"
+                               required
+                               maxlength="50"
+                               placeholder="名前を入力">
+
+                    </div>
+
+                </div>
+
+                <div class="question" th:each="entry : ${map}">
+
+                    <h2 class="question-title">
+
+                        <span th:text="${entry.key.body}">質問 1</span>
+
+                    </h2>
+
+                    <div class="choices">
+
+                        <label class="choice" th:each="choice, iterStat : ${entry.value}">
+
+                            <input type="radio"
+                                   th:field="*{selects[__${entry.key.id}__]}"
+                                   th:value="${choice.id}"
+                                   th:required="${iterStat.first}" />
+
+                            <span th:text="${choice.body}">[選択肢]</span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+                <div class="button-area">
+
+                    <button type="submit"
+                            class="diagnosis-button">
+
+                        診断する
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </main>
+
+        <footer class="footer">
+
+            <a
+                class="top-link"
+                th:href="@{/}"
+                href="index.html">
+
+                TOP
+
+            </a>
+
+        </footer>
+
+    </div>
 
 </body>
 

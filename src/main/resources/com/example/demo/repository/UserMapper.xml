@@ -15,11 +15,13 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="com.example.demo.entity.Users">
-        <!-- ユーザーを新規登録（登録用） -->
-        INSERT INTO users (name,body)
-        VALUES (#{name},#{body})
-    </insert>
+    <insert id="insert"
+        parameterType="com.example.demo.entity.Users"
+        useGeneratedKeys="true"
+        keyProperty="id">
+    INSERT INTO users (name, body)
+    VALUES (#{name}, #{body})
+</insert>
 	
     <update id="update" parameterType="com.example.demo.entity.Users">
         <!-- ユーザー情報の更新（編集用） -->
@@ -33,5 +35,11 @@
         DELETE FROM users
         WHERE id = #{id}
     </delete>
+    
+    <select id="findByName" resultType="com.example.demo.entity.Users">
+    SELECT id, name, body, created_at AS createdAt
+    FROM users
+    WHERE name = #{name}
+</select>
 
 </mapper>

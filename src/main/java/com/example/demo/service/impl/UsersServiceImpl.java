@@ -91,4 +91,9 @@ public class UsersServiceImpl implements UsersService {
         // その後ユーザーを削除
         userMapper.deleteById(id);
     }
+    
+    @Override
+    public Users findUserByName(String name) {
+        return userMapper.findByName(name);
+    }
 }

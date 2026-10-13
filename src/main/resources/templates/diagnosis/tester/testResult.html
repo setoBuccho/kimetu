@@ -147,9 +147,10 @@
 			<!-- 左：キャラクター画像
 			     右：診断結果 -->
 
-			<div class="result-layout">
 
-
+				 <!-- 変更後:画像のファイル名(tanjiroなど)を data-chara に入れる -->
+				 <div class="result-layout"
+				      th:attr="data-chara=${#strings.substringBefore(#strings.substringAfterLast(character.characterImagePath,'/'),'.')}">
 				<!-- ==========================================
 				     左：キャラクター画像
 				     ========================================== -->

@@ -6,20 +6,22 @@
     <title>ユーザー編集</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" th:href="@{/css/diagnosis/style.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user.css}">
 </head>
 
 <body>
 
-    <div class="screen">
+    <div class="register-screen">
 
         <header>
             <p class="icon">鬼滅の刃<br>キャラクター診断</p>
         </header>
 
         <main>
+			<div class="register-title">
+			    <h1>ユーザー編集</h1>
+			</div>
 
-            <h1>ユーザー編集</h1>
 			
 			<form th:action="@{/users/{id}/edit(id=${user.id})}" method="post">
 
@@ -31,10 +33,10 @@
                        th:value="${user.name}">
             </div>
 
-            <div>
-                <p>診断結果</p>
-                <p>竈門炭治郎</p>
-            </div>
+			<div>
+			    <p>診断結果</p>
+			    <p th:text="${diagnosisResult}">未診断</p>
+			</div>
 
             <div>
                 <label for="body">プロフィール・自由記入欄</label>
@@ -45,7 +47,8 @@
                           placeholder="自己紹介や、感想など、自由に書いてください♪"></textarea>
             </div>
 
-            <button type="submit">保存する</button>
+			<button type="submit">保存する</button>
+			<a href="/">TOPに戻る</a>
 			
 			</form>
 

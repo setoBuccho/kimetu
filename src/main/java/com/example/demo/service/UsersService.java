@@ -12,6 +12,8 @@ public interface UsersService {
 	
     Users getUserById(long id);
     
+    Users findUserByName(String name);
+    
     void saveUser(Users user);
     
     void updateUser(Users user);
