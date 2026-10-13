@@ -10,7 +10,7 @@
     SELECT id,
            questions_id AS questionId,
            characters_id AS characterId,
-           CONCAT(characters_id, body) body
+           body
 
     FROM choices
 
@@ -20,7 +20,9 @@
 
 </select>
 	
-	<select id="findById" resultType="com.example.demo.entity.Choices">
+	<select id="fin
+	
+	dById" resultType="com.example.demo.entity.Choices">
 
     <!-- 有木：DBのカラム名をChoices.javaのフィールド名に合わせて取得する -->
     <!-- 有木：characters_id → characterId にすることで、診断結果のキャラクターIDを正しく取得する -->
@@ -40,7 +42,7 @@
     SELECT id,
            questions_id AS questionId,
            characters_id AS characterId,
-           CONCAT(characters_id, body) body
+           body
     FROM choices
     WHERE questions_id = #{questionId}
       AND characters_id IN
