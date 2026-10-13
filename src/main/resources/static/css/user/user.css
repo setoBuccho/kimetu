@@ -631,10 +631,10 @@ body {
 
 /* ユーザー編集タイトル横の4人画像 */
 .edit-title img {
-    width: 250px;
+    width: 220px;
     height: auto;
     object-fit: contain;
-    margin-left: 60px;
+    margin-left: 50px;
 }
 
 /* ユーザー編集：ボタンを横並びにする */
