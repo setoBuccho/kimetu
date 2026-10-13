@@ -142,7 +142,7 @@ public class TestController {
 	
 	
 
-	@PostMapping("/test/diagnosis/final")
+	@PostMapping("/diagnosis/final")
 	public String finalSubmit(@RequestParam int choiceId, @RequestParam long userId, Model model) {
 		Choices choice = testService.getChoiceById(choiceId);
 		Characters resultCharacter = testService.getCharacterById(choice.getCharacterId());
