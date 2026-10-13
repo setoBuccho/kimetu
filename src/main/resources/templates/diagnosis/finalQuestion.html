@@ -33,7 +33,7 @@
 
         <main class="main-column">
 			
-			<form th:action="@{/test/diagnosis/final}" method="post">
+			<form th:action="@{/diagnosis/final}" method="post">
 				<div class="question">
 					<h2 class="question-title"
 		                th:text="${question.body}">
@@ -50,7 +50,7 @@
 	                               name="choiceId"
 	                               th:value="${choice.id}"
 	                               required>
-								   
+							
 	                        <span th:text="${choice.body}">
 	                            誰かの痛みに寄り添って、あきらめずに前へ進む気持ち
 	                        </span>
