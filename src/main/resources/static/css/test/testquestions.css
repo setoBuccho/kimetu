@@ -221,16 +221,91 @@ body.page-characters .choice input[type="radio"] {
     cursor: pointer;
 }
 
-/* 8. ボタンエリア
-   「結果を見る」ボタンは質問枠の外側に配置 */
-body.page-characters .button-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin: 14px 0 22px;
-    padding: 0;
-    box-sizing: border-box;
+   /* ============================================
+      ヘッダー
+      ============================================ */
+	  body.page-characters header {
+
+	  	position: sticky;               /* タイトルを重ねる基準 */
+
+	  	display: flex;
+	  	align-items: center;              /* ロゴを上下中央に */
+	  	justify-content: flex-start;      /* ロゴを左寄せ */
+	  	min-height: 64px;
+	  	width: 100%;
+	  	max-width: none;
+	  	box-sizing: border-box;
+	  	margin: 0;
+	  	padding: 8px 16px;
+	  	background: #f5f2ec;              /* 帯の色（好きな色に変更OK） */
+	  	border: none;
+	  	border-bottom: 1px solid #ddd;
+	  	border-radius: 0;
+	  	box-shadow: none;
+	  }
+
+   /* 左上のロゴ */
+   body.page-characters header .titlelogo,
+   body.page-characters header .title-logo {
+       display: block;
+       height: 48px;
+       width: auto;
+       max-width: 100%;
+       margin: 0;
+   }
+
+   /* 中央のタイトル */
+   body.page-characters header .title {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+
+       width: auto;
+       margin: 0;
+       padding: 0;
+
+       font-family: "Zen Antique", serif;
+       font-size: 24px;
+       font-weight: 400;
+       letter-spacing: 0.15em;
+       text-align: center;
+       white-space: nowrap;
+   }
+
+   /* 右上のメニューボタン */
+   body.page-characters .menu-wrapper {
+       position: absolute;
+       top: 8px;
+       right: 16px;
+       z-index: 1000;
+   }
+
+   body.page-characters .menu-button {
+       width: 48px;
+       height: 48px;
+       padding: 0;
+
+       background: #f5f2ec;
+       border: 1px solid #333;
+       border-radius: 6px;
+
+       font-size: 28px;
+       line-height: 1;
+       cursor: pointer;
+   }
+
+   body.page-characters .menu-button:hover {
+       background: #e8e4dc;
+   }
+
+/* ------------------------------------------------
+   フッター：真ん中に「TOP」リンク
+   ------------------------------------------------ */
+body.page-characters .footer {
+	margin-top: 16px;
+	border-top: 1px solid #ddd;
+	border-bottom: none;
 }
 
 /* 通常の診断ボタン */
@@ -387,29 +462,20 @@ body.page-characters .copyright {
     }
 }
 
-/* 13. スマートフォン */
-@media (max-width: 600px) {
-    body.page-characters header {
-        height: 64px;
-        min-height: 64px;
-        padding: 8px 12px;
-    }
+/* ☰ ボタン */
+body.page-characters .menu-button {
+	width: 48px;
+	height: 48px;
+	padding: 0;
 
-    body.page-characters header .titlelogo,
-    body.page-characters header .title-logo {
-        height: 38px;
-    }
+	background: #f5f2ec;
+	border: 1px solid #333;
+	border-radius: 6px;
 
-    body.page-characters header .title {
-        max-width: calc(100% - 112px);
-        font-size: clamp(14px, 4vw, 19px);
-        letter-spacing: 0.08em;
-    }
-
-    body.page-characters .menu-wrapper {
-        top: 8px;
-        right: 8px;
-    }
+	font-size: 28px;
+	line-height: 1;
+	cursor: pointer;
+}
 
     body.page-characters .menu-button {
         width: 44px;
@@ -417,63 +483,55 @@ body.page-characters .copyright {
         font-size: 24px;
     }
 
-    body.page-characters .menu-list {
-        top: 50px;
-        width: 180px;
-    }
+/* リンク一覧：初期状態では非表示 */
+body.page-characters .menu-list {
+	display: none;
 
-    body.page-characters .menu-list a {
-        padding: 14px 16px;
-        font-size: 14px;
-    }
+	position: absolute;
+	top: 52px;
+	right: 0;
 
-    body.page-characters .main-column {
-        width: calc(100% - 24px);
-        margin-top: 112px;
-        margin-bottom: 48px;
-    }
+	width: 180px;
 
-    body.page-characters .question {
-        padding: 16px;
-        margin-bottom: 24px;
-    }
+	background: rgba(255, 253, 247, 0.98);
 
-    body.page-characters .question-title {
-        font-size: 18px;
-        line-height: 1.65;
-    }
+	border: 1px solid #333;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+	z-index: 1001;
+}
 
     body.page-characters .choice {
         gap: 8px;
         font-size: 14px;
     }
 
-    body.page-characters .submit-button {
-        width: min(250px, 100%);
-        margin: 22px auto 28px;
-    }
+/* 各リンク */
+body.page-characters .menu-list a {
 
-    body.page-characters .character-top-right {
-        top: 72px;
-        right: 4px;
-        width: clamp(62px, 17vw, 100px);
-    }
+	display: block;
 
-    body.page-characters .character-decoration {
-        left: -12px;
-        width: clamp(65px, 19vw, 115px);
-    }
+	padding: 14px 18px;
 
-    body.page-characters .footer {
-        padding: 8px 12px;
-    }
+	color: #222;
+	font-family: "Shippori Mincho", serif;
+	font-size: 15px;
+	text-align: left;          /* ← 追加：文字を左寄せ */
+	text-decoration: none;
+
+	border-bottom: 1px solid #ddd;
 }
 
-/* とても狭い画面 */
-@media (max-width: 360px) {
-    body.page-characters .main-column {
-        width: calc(100% - 16px);
-    }
+/* 最後の線を消す */
+body.page-characters .menu-list a:last-child {
+	border-bottom: none;
+}
+
+/* マウスを乗せたとき */
+body.page-characters .menu-list a:hover {
+	background: #eee9df;
+
+}
 
     body.page-characters .question {
         padding: 12px;
