@@ -6,10 +6,8 @@
     <title>キャラクター診断 | 最後の質問</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet"
-          th:href="@{/css/normalize.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/diagnosis/style.css}">
+    <link rel="stylesheet" th:href="@{/css/normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/diagnosis/style.css}">
 </head>
 
 <body>
@@ -17,7 +15,6 @@
 <div class="screen">
 
     <header>
-
         <a th:href="@{/test}">
             <img class="title-logo"
                  th:src="@{/images/diagnosis/title.png}"
@@ -25,11 +22,22 @@
         </a>
 
         <h1 class="title">最後の質問</h1>
-
     </header>
+
+    <!-- 切り抜き画像 -->
+    <div style="display: flex; justify-content: center; align-items: flex-end; gap: 10px; margin: 20px auto; width: 100%; box-sizing: border-box;">
+        <img th:src="@{/images/diagnosis/test/kirinuki1.png}"
+             alt="切り抜き画像1"
+             style="display: block; width: 45%; height: auto;">
+
+        <img th:src="@{/images/diagnosis/test/kirinuki2.png}"
+             alt="切り抜き画像2"
+             style="display: block; width: 45%; height: auto;">
+    </div>
 
     <main>
 
+        <!-- 最後の質問 -->
         <div class="question">
 
             <h2 class="question-title"
@@ -37,8 +45,7 @@
                 最後の質問！あなたが一番大切にしたい気持ちは？
             </h2>
 
-            <form th:action="@{/test/diagnosis/final}"
-                  method="post">
+            <form th:action="@{/test/diagnosis/final}" method="post">
 
                 <input type="hidden"
                        name="userId"
@@ -72,8 +79,7 @@
     <footer class="footer">
 
         <a th:href="@{/}">
-            <img src="../../../static/images/logo.png"
-                 th:src="@{/images/logo.png}"
+            <img th:src="@{/images/logo.png}"
                  alt="TOPへ">
         </a>
 
@@ -86,5 +92,4 @@
 </div>
 
 </body>
-
 </html>
