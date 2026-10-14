@@ -35,70 +35,44 @@
 
 	<div class="screen">
 
-		<!-- ============================================
-		     ヘッダー
-		     ============================================ -->
+		<!-- アタマ -->
 		<header>
-
 			<!-- ロゴ -->
-			<img class="titlelogo"
-			     src="../../static/images/diagnosis/title.png"
-			     th:src="@{/images/diagnosis/title.png}"
-			     alt="キャラクター診断">
+			<a th:href="@{/}" href="index.html">
+				<img
+					class="title-logo"
+					th:src="@{/images/diagnosis/title.png}"
+					src="../../static/images/diagnosis/title.png"
+					alt="鬼滅の刃診断">
+			</a>
 
 			<!-- ページタイトル -->
 			<h1 class="title">キャラクター一覧</h1>
 
 
-			<!-- ========================================
-			     右上メニューボタン
-			     ======================================== -->
+			<!-- ハンバーガー -->
 			<div class="menu-wrapper">
-
-				<!-- ☰ ボタン -->
-				<button type="button"
-				        class="menu-button"
-				        onclick="toggleMenu()"
-				        aria-label="メニューを開く">
+				<button class="menu-button"
+					type="button"
+					onclick="toggleMenu()"
+					aria-label="メニューを開く"
+					aria-expanded="false"
+					aria-controls="menu">
 					☰
 				</button>
-
-
-				<!-- メニュー -->
+				
+				<!-- リンク一覧 -->
 				<nav id="menu" class="menu-list">
-
-					<!-- TOP -->
-					<a th:href="@{/}" href="index.html">
-						TOP
-					</a>
-
-					<!-- 診断 -->
-					<a th:href="@{/questions}" href="#">
-						診断
-					</a>
-
-
-					<!-- キャラクター一覧 -->
-					<a th:href="@{/characters}" href="#">
-						キャラクター一覧
-					</a>
-
-					<!-- ユーザー一覧 -->
-					<a th:href="@{/users}" href="#">
-						ユーザー一覧
-					</a>
-
+					<a th:href="@{/}" href="index.html">TOP</a>
+					<a th:href="@{/questions}" href="#">診断</a>
+					<a th:href="@{/characters}" href="#">キャラクター一覧</a>
+					<a th:href="@{/users}" href="#">ユーザー一覧</a>
 				</nav>
-
 			</div>
-
-
 		</header>
 
 
-		<!-- ============================================
-		     メイン：キャラクター一覧
-		     ============================================ -->
+		<!-- キャラクター一覧 -->
 		<main class="main-column">
 
 			<div class="card"
@@ -106,17 +80,14 @@
 
 				<!-- キャラクター画像 -->
 				<div class="thumb">
-
 					<img th:src="@{${character.characterImagePath}}"
 					     th:alt="${character.familyName}+' '+${character.firstName}"
+						 src="../../static/images/diagnosis/characters/rengoku.png"
 					     alt="キャラ画像">
-
 				</div>
-
 
 				<!-- キャラクター情報 -->
 				<div class="info">
-
 					<p class="kana"
 					   th:text="${character.familyNameKana}+' '+${character.firstNameKana}">
 						かまど たんじろう
@@ -132,11 +103,8 @@
 							キャラ説明文
 						</span>
 					</div>
-
 				</div>
-
 			</div>
-
 		</main>
 
 

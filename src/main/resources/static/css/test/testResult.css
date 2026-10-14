@@ -112,12 +112,14 @@ body.page-result .result-main::before {
     gap: 28px;
     align-items: stretch;
     width: min(100%, 1000px);
+	height: 70vh;
 }
 
 
 /* キャラクター画像 */
 .result-image {
-    flex: 0 0 40%;
+    flex: 0 0 auto;
+	height: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
     border: 3px solid #c9a227;

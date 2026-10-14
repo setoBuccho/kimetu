@@ -10,17 +10,22 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet" th:href="@{/css/normalize.css}" href="../../../static/css/normalize.css">
-	<link rel="stylesheet" th:href="@{/css/diagnosis/style.css}" href="../../../static/css/diagnosis/style.css">
-
-	<link rel="stylesheet" th:href="@{/css/test/testResult.css}" href="../../../static/css/test/testResult.css">
+	<link rel="stylesheet"
+		th:href="@{/css/normalize.css}"
+		href="../../../resources/static/css/normalize.css">
+	<link rel="stylesheet"
+		th:href="@{/css/diagnosis/style.css}"
+		href="../../../resources/static/css/diagnosis/style.css">
+	<link rel="stylesheet"
+		th:href="@{/css/test/testResult.css}"
+		href="../../../resources/static/css/test/testResult.css">
 </head>
 <body class="page-result">
 	<div class="screen nav">
 		<header class="nav-com">
 			<a href="index.html" th:href="@{/}">
 				<img class="title-logo"
-					 src="../../../static/images/diagnosis/title.png"
+					 src="../../static/images/diagnosis/title.png"
 					 th:src="@{/images/diagnosis/title.png}"
 					 alt="TOPへ">
 			</a>
@@ -50,7 +55,7 @@
 
 				<div class="result-image">
 					<img th:src="@{'/'+${character?.resultImagePath}}"
-						 src="../../../static/images/diagnosis/test/tanjiro.png"
+						 src="../../static/images/diagnosis/result/rengoku.png"
 						 alt="キャラ画像">
 				</div>
 

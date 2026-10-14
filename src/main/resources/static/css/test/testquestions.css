@@ -164,8 +164,8 @@ body.page-characters .menu-list a:hover {
 
 /* 5. 質問エリア */
 body.page-characters .main-column {
-	width: 50%;
-	margin: 155px auto 80px;
+	width: 65%;
+	margin: 50px auto 80px;
 	padding: 0;
 	box-sizing: border-box;
 }
