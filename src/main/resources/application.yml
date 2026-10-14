@@ -1,13 +1,19 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:kimetu
+    # url: jdbc:h2:mem:kimetu
+    url: jdbc:h2:file:./data/kimetu
     username: sa
     password:
 
   h2:
     console:
       enabled: true
+
+  # ★ファイル保存のDBでも毎回SQLを実行する（schema.sql / data.sql は重複しない書き方に修正済み）
+  sql:
+    init:
+      mode: always
 
 mybatis:
   mapper-locations: classpath:com.example.demo.mapper/*.xml
