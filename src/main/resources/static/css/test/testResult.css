@@ -75,21 +75,20 @@ body.page-result header .title {
     white-space: nowrap;
 }
 
-
 /* ---------- 4. メイン ---------- */
 
 body.page-result .result-main {
-    position: relative;
-    z-index: 0;
-    flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    padding: clamp(70px, 22vh, 220px) 16px;
-    background: none;
+position: relative;
+z-index: 0;
+flex: 1 0 auto;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+box-sizing: border-box;
+margin: 0;
+padding: 24px 16px;
+background: none;
 }
 
 /* メイン部分の和紙背景 */

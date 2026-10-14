@@ -1,111 +1,156 @@
 <!DOCTYPE html>
+
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>キャラクター診断 | 最後の質問</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/normalize.css}"
-          href="../../../resources/static/css/normalize.css">
 
-    <link rel="stylesheet"
-          th:href="@{/css/diagnosis/style.css}"
-          href="../../../resources/static/css/diagnosis/style.css">
+<link rel="stylesheet"
+      th:href="@{/css/normalize.css}"
+      href="../../../resources/static/css/normalize.css">
 
-    <link rel="stylesheet"
-          th:href="@{/css/test/testquestions.css}"
-          href="../../../resources/static/css/test/testquestions.css">
+<link rel="stylesheet"
+      th:href="@{/css/diagnosis/style.css}"
+      href="../../../resources/static/css/diagnosis/style.css">
+
+<link rel="stylesheet"
+      th:href="@{/css/test/testquestions.css}"
+      href="../../../resources/static/css/test/testquestions.css">
+```
+
 </head>
 
 <body class="page-characters">
 
-    <!-- 右上のミニキャラクター -->
-    <div class="character-top-right">
-        <img
-            th:src="@{/images/diagnosis/test/kirinuki2.png}"
-            src="../../../resources/static/images/diagnosis/test/kirinuki2.png"
-            alt="キャラクター">
-    </div>
+```
+<!-- 右上のミニキャラクター -->
+<div class="character-top-right">
+    <img
+        th:src="@{/images/diagnosis/test/kirinuki2.png}"
+        src="../../../resources/static/images/diagnosis/test/kirinuki2.png"
+        alt="キャラクター">
+</div>
 
-    <!-- 左下のミニキャラクター -->
-    <div class="character-decoration">
-        <img
-            th:src="@{/images/diagnosis/test/kirinuki1.png}"
-            src="../../../resources/static/images/diagnosis/test/kirinuki1.png"
-            alt="キャラクター">
-    </div>
+<!-- 左下のミニキャラクター -->
+<div class="character-decoration">
+    <img
+        th:src="@{/images/diagnosis/test/kirinuki1.png}"
+        src="../../../resources/static/images/diagnosis/test/kirinuki1.png"
+        alt="キャラクター">
+</div>
 
-    <div class="screen">
+<div class="screen">
 
-        <header>
-            <img class="title-logo"
-                 alt="鬼滅の刃診断"
-                 th:src="@{/images/diagnosis/title.png}"
-                 src="../../static/images/diagnosis/title.png">
+    <header>
+        <!-- 左上のロゴ -->
+        <img class="title-logo"
+             alt="鬼滅の刃診断"
+             th:src="@{/images/diagnosis/title.png}"
+             src="../../static/images/diagnosis/title.png">
 
-            <h1 class="title">最後の質問</h1>
-        </header>
+        <!-- 中央のタイトル -->
+        <h1 class="title">最後の質問</h1>
 
-        <main class="main-column">
+        <!-- 右上のメニュー -->
+        <div class="menu-wrapper">
+            <button
+                type="button"
+                class="menu-button"
+                onclick="toggleMenu()"
+                aria-label="メニューを開く"
+                aria-expanded="false"
+                aria-controls="menu">
+                ☰
+            </button>
 
-            <form th:action="@{/diagnosis/final}" method="post">
+            <!-- リンク一覧 -->
+            <nav id="menu" class="menu-list">
+                <a th:href="@{/}" href="index.html">TOP</a>
+                <a th:href="@{/questions}" href="#">診断</a>
+                <a th:href="@{/characters}" href="#">キャラクター一覧</a>
+                <a th:href="@{/users}" href="#">ユーザー一覧</a>
+            </nav>
+        </div>
+    </header>
 
-                <input type="hidden"
-                       name="userId"
-                       th:value="${userId}">
+    <main class="main-column">
 
-                <!-- 質問と選択肢の枠 -->
-                <div class="question">
+        <form th:action="@{/diagnosis/final}" method="post">
 
-                    <h2 class="question-title"
-                        th:text="${question.body}">
-                        最後の質問！あなたが一番大切にしたい気持ちは？
-                    </h2>
+            <input type="hidden"
+                   name="userId"
+                   th:value="${userId}">
 
-                    <div class="choices">
+            <!-- 質問と選択肢の枠 -->
+            <div class="question">
 
-                        <label class="choice" th:each="choice : ${choices}">
+                <h2 class="question-title"
+                    th:text="${question.body}">
+                    最後の質問！あなたが一番大切にしたい気持ちは？
+                </h2>
 
-                            <input type="radio"
-                                   name="choiceId"
-                                   th:value="${choice.id}"
-                                   required>
+                <div class="choices">
 
-                            <span th:text="${choice.body}">選択肢</span>
+                    <label class="choice" th:each="choice : ${choices}">
+                        <input type="radio"
+                               name="choiceId"
+                               th:value="${choice.id}"
+                               required>
 
-                        </label>
-
-                    </div>
+                        <span th:text="${choice.body}">選択肢</span>
+                    </label>
 
                 </div>
+            </div>
 
-                <!-- 結果を見るボタンの枠 -->
-                <div class="button-area">
-                    <button type="submit" class="submit-button">
-                        結果を見る
-                    </button>
-                </div>
+            <!-- 結果を見るボタンの枠 -->
+            <div class="button-area">
+                <button type="submit" class="submit-button">
+                    結果を見る
+                </button>
+            </div>
 
-            </form>
+        </form>
 
-        </main>
+    </main>
 
-        <footer class="footer">
-            <a th:href="@{/}" href="index.html">
-                <img src="../../static/images/logo.png"
-                     th:src="@{/images/logo.png}"
-                     alt="TOPへ">
-            </a>
-            <p class="copyright">
-                <small>&copy;Copyright 2026 304_メタモン</small>
-            </p>
-        </footer>
+    <!-- フッター -->
+    <footer class="footer">
 
-    </div>
+        <a th:href="@{/}" href="index.html">
+            <img src="../../static/images/logo.png"
+                 th:src="@{/images/logo.png}"
+                 alt="TOPへ">
+        </a>
+
+        <p class="copyright">
+            <small>&copy;Copyright 2026 304_メタモン</small>
+        </p>
+
+    </footer>
+
+</div>
+
+<!-- メニュー開閉用JavaScript -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu");
+        const button = document.querySelector(".menu-button");
+
+        menu.classList.toggle("open");
+
+        const isOpen = menu.classList.contains("open");
+
+        button.setAttribute("aria-expanded", isOpen);
+        button.setAttribute(
+            "aria-label",
+            isOpen ? "メニューを閉じる" : "メニューを開く"
+        );
+    }
+</script>
 
 </body>
-
 </html>
