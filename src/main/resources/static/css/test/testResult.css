@@ -88,7 +88,7 @@ body.page-result .result-main {
     width: 100%;
     box-sizing: border-box;
     margin: 0;
-    padding: clamp(70px, 22vh, 220px) 16px;
+    padding: 24px 16px;
     background: none;
 }
 
@@ -166,19 +166,11 @@ body.page-result .result-main::before {
 }
 
 .lead {
-    margin: 0 0 20px;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: .15em;
+    margin: 0 0 8px;
+    font-size: 14px;
+    letter-spacing: .1em;
 }
 
-/* ふりがな：名前のすぐ上に小さく */
-.result-kana {
-    margin: 0 0 2px;
-    font-size: 14px;
-    letter-spacing: .2em;
-    color: #555;
-}
 .result-name {
     margin: 0 0 12px;
     padding-left: 0;
