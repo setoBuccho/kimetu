@@ -5,68 +5,180 @@
     <meta charset="UTF-8">
     <title>ユーザー一覧</title>
     <link rel="stylesheet" th:href="@{/css/user/user.css}" href="../../static/css/user/user.css">
+
+    <!-- 追加：ハンバーガーメニュー専用CSS -->
+    <style>
+        .menu-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+		.menu-button {
+		    font-size: 28px;
+		    cursor: pointer;
+		    background: #fff;
+		    border: 1px solid #000;
+		    color: #000;
+		    width: 48px;
+		    height: 48px;
+		    border-radius: 8px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    box-sizing: border-box;
+		}
+
+        .menu-list {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            min-width: 160px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .menu-list.open {
+            display: block;
+        }
+
+        .menu-list a {
+            display: block;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .menu-list a:hover {
+            background: #f2f2f2;
+        }
+    </style>
 </head>
 
 <body>
-    <main class="screen">
 
-        <div class="user-list-title">
-            <p>※絵・ライアン</p>
-            <img src="/images/diagnosis/characters/old/etc/agatuma.jpg" alt="我妻善逸">
-            <h1>ユーザー一覧</h1>
-            <img src="/images/diagnosis/characters/old/etc/inosuke.jpg" alt="嘴平伊之助">
+<!-- 追加：ハンバーガーメニュー -->
+<div class="menu-wrapper">
+    <button type="button"
+            class="menu-button"
+            onclick="toggleMenu()"
+            aria-label="メニューを開く"
+            aria-expanded="false"
+            aria-controls="menu">☰</button>
+
+    <nav id="menu" class="menu-list">
+        <a th:href="@{/}" href="/">TOP</a>
+        <a th:href="@{/questions}" href="#">診断</a>
+        <a th:href="@{/characters}" href="#">キャラクター一覧</a>
+        <a th:href="@{/users}" href="#">ユーザー一覧</a>
+    </nav>
+</div>
+
+<main class="screen">
+
+    <div class="user-list-title">
+
+        <p>※絵・ライアン</p>
+
+        <img src="/images/diagnosis/characters/old/etc/agatuma.jpg" alt="我妻善逸">
+
+        <h1>ユーザー一覧</h1>
+
+        <img src="/images/diagnosis/characters/old/etc/inosuke.jpg" alt="嘴平伊之助">
+
+    </div>
+
+    <!-- ユーザーがいない場合 -->
+
+    <p th:if="${#lists.isEmpty(users)}">ユーザーがいません。</p>
+
+    <!-- ユーザー一覧 -->
+
+    <div th:each="u : ${users}" class="user-card">
+
+        <h2 th:text="${u.name}">ユーザー名</h2>
+
+        <p th:text="${u.body}">自己紹介等（自由記入欄）</p>
+
+        <!-- 診断結果：名前と画像を横並びに表示 -->
+
+        <div class="diagnosis-result"
+             style="display: flex; align-items: center; gap: 10px;">
+
+            <p style="margin: 0;">
+
+                診断結果：
+
+                <span th:text="${characterNames[u.id] != null ? characterNames[u.id] : '未診断'}">
+
+                    未診断
+
+                </span>
+
+            </p>
+
+            <img th:if="${characterImages[u.id] != null}"
+                 th:src="${characterImages[u.id]}"
+                 th:alt="${characterNames[u.id]}"
+                 style="width: 60px; height: 60px; object-fit: contain;">
+
         </div>
 
-        <!-- ユーザーがいない場合 -->
-        <p th:if="${#lists.isEmpty(users)}">ユーザーがいません。</p>
+        <!-- ユーザー編集 -->
 
-        <!-- ユーザー一覧 -->
-        <div th:each="u : ${users}" class="user-card">
+        <a th:href="@{/users/{id}/edit(id=${u.id})}">
 
-            <h2 th:text="${u.name}">ユーザー名</h2>
+            ユーザー編集
 
-            <p th:text="${u.body}">自己紹介等（自由記入欄）</p>
-
-            <!-- 診断結果：名前と画像を横並びに表示 -->
-            <div class="diagnosis-result"
-                 style="display: flex; align-items: center; gap: 10px;">
-
-                <p style="margin: 0;">
-                    診断結果：
-                    <span th:text="${characterNames[u.id] != null ? characterNames[u.id] : '未診断'}">
-                        未診断
-                    </span>
-                </p>
-
-                <img th:if="${characterImages[u.id] != null}"
-                     th:src="${characterImages[u.id]}"
-                     th:alt="${characterNames[u.id]}"
-                     style="width: 60px; height: 60px; object-fit: contain;">
-            </div>
-
-            <!-- ユーザー編集 -->
-            <a th:href="@{/users/{id}/edit(id=${u.id})}">
-                ユーザー編集
-            </a>
-
-            <!-- ユーザー削除 -->
-            <form th:action="@{/users/{id}/delete(id=${u.id})}"
-                  method="post"
-                  style="display: inline;"
-                  onsubmit="return confirm('削除しますか？');">
-
-                <button type="submit">削除</button>
-            </form>
-
-        </div>
-
-        <!-- TOPに戻る -->
-        <a href="/" class="top-button">
-            <img src="/images/diagnosis/test/shinobu.png" alt="胡蝶しのぶ">
-            <span>TOPに戻る</span>
         </a>
 
-    </main>
-</body>
+        <!-- ユーザー削除 -->
 
+        <form th:action="@{/users/{id}/delete(id=${u.id})}"
+              method="post"
+              style="display: inline;"
+              onsubmit="return confirm('削除しますか？');">
+
+            <button type="submit">削除</button>
+
+        </form>
+
+    </div>
+
+    <!-- TOPに戻る -->
+
+    <a href="/" class="top-button">
+
+        <img src="/images/diagnosis/test/shinobu.png" alt="胡蝶しのぶ">
+
+        <span>TOPに戻る</span>
+
+    </a>
+
+</main>
+
+<!-- 追加：メニュー開閉処理 -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu");
+        const button = document.querySelector(".menu-button");
+
+        menu.classList.toggle("open");
+
+        const isOpen = menu.classList.contains("open");
+
+        button.setAttribute("aria-expanded", isOpen);
+        button.setAttribute(
+            "aria-label",
+            isOpen ? "メニューを閉じる" : "メニューを開く"
+        );
+    }
+</script>
+
+</body>
 </html>
