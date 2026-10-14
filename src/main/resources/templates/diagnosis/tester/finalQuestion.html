@@ -2,94 +2,137 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <title>キャラクター診断 | 最後の質問</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>キャラクター診断 | 最後の質問</title>
 
-    <link rel="stylesheet" th:href="@{/css/normalize.css}">
-    <link rel="stylesheet" th:href="@{/css/diagnosis/style.css}">
+	<!-- Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Shippori+Mincho:wght@400;600&display=swap"
+	      rel="stylesheet">
+
+	<!-- 共通CSS -->
+	<link rel="stylesheet" th:href="@{/css/normalize.css}">
+	<link rel="stylesheet" th:href="@{/css/diagnosis/style.css}">
+
+	<!-- 質問ページ用CSS -->
+	<link rel="stylesheet" th:href="@{/css/test/testquestions.css}">
 </head>
 
-<body>
+<!-- page-characters を付けないとCSSが効かない -->
+<body class="page-characters">
 
 <div class="screen">
 
-    <header>
-        <a th:href="@{/test}">
-            <img class="title-logo"
-                 th:src="@{/images/diagnosis/title.png}"
-                 alt="TOPへ">
-        </a>
+	<!-- ============================================
+	     ヘッダー
+	     ============================================ -->
+	<header>
+		<a th:href="@{/test}">
+			<img class="title-logo"
+			     th:src="@{/images/diagnosis/title.png}"
+			     alt="TOPへ">
+		</a>
 
-        <h1 class="title">最後の質問</h1>
-    </header>
+		<h1 class="title">最後の質問</h1>
 
-    <!-- 切り抜き画像 -->
-    <div style="display: flex; justify-content: center; align-items: flex-end; gap: 10px; margin: 20px auto; width: 100%; box-sizing: border-box;">
-        <img th:src="@{/images/diagnosis/test/kirinuki1.png}"
-             alt="切り抜き画像1"
-             style="display: block; width: 45%; height: auto;">
+		<!-- 右上メニューボタン -->
+		<div class="menu-wrapper">
 
-        <img th:src="@{/images/diagnosis/test/kirinuki2.png}"
-             alt="切り抜き画像2"
-             style="display: block; width: 45%; height: auto;">
-    </div>
+			<button type="button"
+			        class="menu-button"
+			        onclick="toggleMenu()"
+			        aria-label="メニューを開く">
+				☰
+			</button>
 
-    <main>
+			<nav id="menu" class="menu-list">
+				<a th:href="@{/}" href="index.html">TOP</a>
+				<a th:href="@{/questions}" href="#">診断</a>
+				<a th:href="@{/characters}" href="#">キャラクター一覧</a>
+				<a th:href="@{/users}" href="#">ユーザー一覧</a>
+			</nav>
 
-        <!-- 最後の質問 -->
-        <div class="question">
+		</div><!-- ← menu-wrapper を閉じる（抜けていた） -->
 
-            <h2 class="question-title"
-                th:text="${question.body}">
-                最後の質問！あなたが一番大切にしたい気持ちは？
-            </h2>
+	</header>
 
-            <form th:action="@{/test/diagnosis/final}" method="post">
+	<!-- 切り抜き画像 -->
+	<div style="display: flex; justify-content: center; align-items: flex-end; gap: 10px; margin: 20px auto; width: 100%; box-sizing: border-box;">
+		<img th:src="@{/images/diagnosis/test/kirinuki1.png}"
+		     alt="切り抜き画像1"
+		     style="display: block; width: 45%; height: auto;">
 
-                <input type="hidden"
-                       name="userId"
-                       th:value="${userId}">
+		<img th:src="@{/images/diagnosis/test/kirinuki2.png}"
+		     alt="切り抜き画像2"
+		     style="display: block; width: 45%; height: auto;">
+	</div>
 
-                <div th:each="choice : ${choices}">
+	<!-- ============================================
+	     メイン：最後の質問
+	     ============================================ -->
+	<main class="main-column">
 
-                    <label class="choice">
+		<div class="question">
 
-                        <input type="radio"
-                               name="choiceId"
-                               th:value="${choice.id}"
-                               required>
+			<h2 class="question-title"
+			    th:text="${question.body}">
+				最後の質問！あなたが一番大切にしたい気持ちは？
+			</h2>
 
-                        <span th:text="${choice.body}">
-                            誰かの痛みに寄り添って、あきらめずに前へ進む気持ち
-                        </span>
+			<form th:action="@{/test/diagnosis/final}" method="post">
 
-                    </label>
+				<input type="hidden" name="userId" th:value="${userId}">
 
-                </div>
+				<!-- 選択肢を囲む（CSSの .choices が当たる） -->
+				<div class="choices">
+					<div th:each="choice : ${choices}">
+						<label class="choice">
+							<input type="radio"
+							       name="choiceId"
+							       th:value="${choice.id}"
+							       required>
+							<span th:text="${choice.body}">
+								誰かの痛みに寄り添って、あきらめずに前へ進む気持ち
+							</span>
+						</label>
+					</div>
+				</div>
 
-                <button type="submit">結果を見る</button>
+				<!-- class="submit-button" を付けるとボタンのデザインが効く -->
+				<button type="submit" class="submit-button">結果を見る</button>
 
-            </form>
+			</form>
 
-        </div>
+		</div>
 
-    </main>
+	</main>
 
-    <footer class="footer">
+	<!-- ============================================
+	     フッター
+	     ============================================ -->
+	<footer class="footer">
 
-        <a th:href="@{/}">
-            <img th:src="@{/images/logo.png}"
-                 alt="TOPへ">
-        </a>
+		<a th:href="@{/}">
+			<img th:src="@{/images/logo.png}" alt="TOPへ">
+		</a>
 
-        <p class="copyright">
-            <small>&copy;Copyright 2026 304_メタモン</small>
-        </p>
+		<p class="copyright">
+			<small>&copy;Copyright 2026 304_メタモン</small>
+		</p>
 
-    </footer>
+	</footer>
 
 </div>
+
+<!-- メニューを開閉するJavaScript（抜けていた） -->
+<script>
+	function toggleMenu() {
+		const menu = document.getElementById("menu");
+		menu.classList.toggle("open");
+	}
+</script>
 
 </body>
 </html>
