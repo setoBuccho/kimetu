@@ -21,6 +21,7 @@ body {
     background-repeat: repeat-x;
     background-position: center top;
     min-height: 100vh;
+	display: flow-root;   /* 上の余白が外にはみ出すのを防ぐ */
 }
 
 .screen {
@@ -705,5 +706,32 @@ body {
     outline: none !important;
     border: none !important;
     box-shadow: none !important;
+}
+/* ユーザー編集画面：横に広げて、スクロールなしで収める */
+.register-screen.edit-screen {
+    width: min(90%, 800px);
+    margin: 20px auto;
+    padding: 30px 40px;
+}
+
+/* 名前と診断結果を横並びに */
+.edit-screen .edit-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+/* 診断結果の見出しの上余白をなくして、名前とそろえる */
+.edit-screen .edit-row p:first-child {
+    margin-top: 0;
+}
+
+@media (max-width: 640px) {
+    .edit-screen .edit-row {
+        grid-template-columns: 1fr;
+    }
+}
+/* タイトル行(キャラ画像)とフォームの間に余白をあける */
+.edit-screen .edit-title {
+    margin-bottom: 24px;
 }
 

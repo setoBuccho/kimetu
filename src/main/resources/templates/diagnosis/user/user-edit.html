@@ -7,11 +7,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" th:href="@{/css/user/user.css}">
+	
+	<!-- ハンバーガーメニュー専用CSS -->
+	<style>
+	    .menu-wrapper {
+	        position: fixed;
+	        top: 20px;
+	        right: 20px;
+	        z-index: 1000;
+	    }
+
+	    .menu-button {
+	        font-size: 28px;
+	        cursor: pointer;
+	        background: #fff;
+	        border: 1px solid #000;
+	        color: #000;
+	        width: 48px;
+	        height: 48px;
+	        border-radius: 8px;
+	        display: flex;
+	        align-items: center;
+	        justify-content: center;
+	        box-sizing: border-box;
+	    }
+
+	    .menu-list {
+	        display: none;
+	        position: absolute;
+	        top: 52px;
+	        right: 0;
+	        min-width: 160px;
+	        background: #fff;
+	        border: 1px solid #ddd;
+	        border-radius: 8px;
+	        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	        overflow: hidden;
+	    }
+
+	    .menu-list.open {
+	        display: block;
+	    }
+
+	    .menu-list a {
+	        display: block;
+	        padding: 12px 16px;
+	        color: #333;
+	        text-decoration: none;
+	    }
+
+	    .menu-list a:hover {
+	        background: #f2f2f2;
+	    }
+	</style>
+	
+	
 </head>
 
 <body>
+	<!-- ハンバーガーメニュー -->
+	<div class="menu-wrapper">
+	    <button type="button"
+	            class="menu-button"
+	            onclick="toggleMenu()"
+	            aria-label="メニューを開く"
+	            aria-expanded="false"
+	            aria-controls="menu">☰</button>
 
-    <div class="register-screen">
+	    <nav id="menu" class="menu-list">
+	        <a th:href="@{/}" href="/">TOP</a>
+	        <a th:href="@{/questions}" href="#">診断</a>
+	        <a th:href="@{/characters}" href="#">キャラクター一覧</a>
+	        <a th:href="@{/users}" href="#">ユーザー一覧</a>
+	    </nav>
+	</div>
+
+    <div class="register-screen edit-screen">
 
 		<header>
 		    <img src="/images/diagnosis/title.png" alt="鬼滅の刃 キャラクター診断" class="site-title-image">
@@ -26,21 +97,26 @@
 			
 			<form th:action="@{/users/{id}/edit(id=${user.id})}" method="post">
 
-            <div>
-                <label for="name">名前</label>
-                <input type="text"
-                       id="name"
-                       name="name"
-                       th:value="${user.name}">
-            </div>
+			    <div class="edit-row">
 
-			<div>
-			    <p>診断結果</p>
-			    <p th:text="${diagnosisResult}">未診断</p>
-			</div>
+			        <div>
+			            <label for="name">名前</label>
+			            <input type="text"
+			                   id="name"
+			                   name="name"
+			                   th:value="${user.name}">
+			        </div>
 
-            <div>
-                <label for="body">プロフィール・自由記入欄</label>
+			        <div>
+			            <p>診断結果</p>
+			            <p th:text="${diagnosisResult}">未診断</p>
+			        </div>
+
+			    </div>
+
+			    <div>
+			        <label for="body">プロフィール・自由記入欄</label>
+			        
                 <textarea id="body"
                           name="body"
                           rows="10"
@@ -63,6 +139,23 @@
         </main>
 
     </div>
+	<!-- メニュー開閉処理 -->
+	<script>
+	    function toggleMenu() {
+	        const menu = document.getElementById("menu");
+	        const button = document.querySelector(".menu-button");
+
+	        menu.classList.toggle("open");
+
+	        const isOpen = menu.classList.contains("open");
+
+	        button.setAttribute("aria-expanded", isOpen);
+	        button.setAttribute(
+	            "aria-label",
+	            isOpen ? "メニューを閉じる" : "メニューを開く"
+	        );
+	    }
+	</script>
 
 </body>
 </html>
