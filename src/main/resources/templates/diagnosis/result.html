@@ -10,7 +10,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
 
-	<link rel="stylesheet"　th:href="@{/css/normalize.css}" href="../../../static/css/normalize.css">
+	<link rel="stylesheet" th:href="@{/css/normalize.css}" href="../../../static/css/normalize.css">
 	<link rel="stylesheet" th:href="@{/css/diagnosis/style.css}" href="../../../static/css/diagnosis/style.css">
 
 	<link rel="stylesheet" th:href="@{/css/test/testResult.css}" href="../../../static/css/test/testResult.css">
@@ -56,13 +56,17 @@
 
 				<section class="result-box">
 					<p class="lead">あなたにいちばん近いキャラは…</p>
+
+					<p class="result-kana"
+					   th:text="${character?.familyNameKana}+' '+${character?.firstNameKana}">
+						かまど たんじろう
+					</p>
+
 					<p class="result-name"
 					   th:text="${character?.familyName}+' '+${character?.firstName}">
 						竈門 炭治郎
 					</p>
-
-
-
+				
 					<!-- ======================================
 					     相性
 					     matchRate がある場合だけ表示
@@ -94,8 +98,6 @@
 						</div>
 
 					</div>
-
-
 
 					<!-- ======================================
 					     キャラクター説明
