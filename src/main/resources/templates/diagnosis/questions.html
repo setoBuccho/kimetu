@@ -2,205 +2,148 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>キャラクター診断 | 診断</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>キャラクター診断 | 診断</title>
 	
 	<!-- ===== Google Fonts ===== -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Shippori+Mincho:wght@400;600&display=swap"
 		rel="stylesheet">
-
-    <link rel="stylesheet"
-          th:href="@{/css/normalize.css}"
-          href="../../../resources/static/css/normalize.css">
-
-    <link rel="stylesheet"
-          th:href="@{/css/diagnosis/style.css}"
-          href="../../../resources/static/css/diagnosis/style.css">
-
-    <link rel="stylesheet"
-          th:href="@{/css/test/testquestions.css}"
-          href="../../../resources/static/css/test/testquestions.css">	
-
+	
+	<link rel="stylesheet"
+		th:href="@{/css/normalize.css}"
+		href="../../../resources/static/css/normalize.css">
+	<link rel="stylesheet"
+		th:href="@{/css/diagnosis/style.css}"
+		href="../../../resources/static/css/diagnosis/style.css">
+	<link rel="stylesheet"
+		th:href="@{/css/test/testquestions.css}"
+		href="../../../resources/static/css/test/testquestions.css">
 </head>
-
 <body class="page-characters">
 	
-	
-	
-	<!-- ============================================
-	     右上のミニキャラクター
-	     ============================================ -->
+	<!-- 右上のミニキャラクター -->
 	<div class="character-top-right">
-
-	    <img
-	        th:src="@{/images/diagnosis/test/kirinuki2.png}"
-	        src="../../../resources/static/images/diagnosis/ミニキャラ右上.png"
-	        alt="キャラクター">
-
+		<img
+			th:src="@{/images/diagnosis/test/kirinuki2.png}"
+			src="../../../resources/static/images/diagnosis/test/kirinuki2.png"
+			alt="キャラクター">
 	</div>
 	
-	<!-- ============================================
-	     左下のミニキャラクター
-	     ============================================ -->
+	<!-- 左下のミニキャラクター -->
 	<div class="character-decoration">
-	    <img
-	        th:src="@{/images/diagnosis/test/kirinuki1.png}"
-	        src="../../../resources/static/images/diagnosis/test/kirinuki1.png"
-	        alt="キャラクター">
+		<img
+ 			th:src="@{/images/diagnosis/test/kirinuki1.png}"
+			src="../../../resources/static/images/diagnosis/test/kirinuki1.png"
+			alt="キャラクター">
 	</div>
-
-    <div class="screen">
-
+	
+ 	<div class="screen">
 		<header>
-
-		    <!-- 左上のロゴ -->
-		    <img
-		        class="title-logo"
-		        th:src="@{/images/diagnosis/title.png}"
-		        src="../../static/images/diagnosis/title.png"
-		        alt="鬼滅の刃診断">
-
-		    <!-- 中央のタイトル -->
-		    <h1 class="title">診断</h1>
-
-		    <!-- 右上のメニュー -->
-		    <div class="menu-wrapper">
-
-		        <button
-		            type="button"
-		            class="menu-button"
-		            onclick="toggleMenu()"
-		            aria-label="メニューを開く"
-		            aria-expanded="false"
-		            aria-controls="menu">
-		            ☰
-		        </button>
-
-		        <!-- リンク一覧 -->
-		        <nav id="menu" class="menu-list">
-
-		            <a th:href="@{/}" href="index.html">TOP</a>
-
-		            <a th:href="@{/questions}" href="#">診断</a>
-
-		            <a th:href="@{/characters}" href="#">キャラクター一覧</a>
-
-		            <a th:href="@{/users}" href="#">ユーザー一覧</a>
-
-		        </nav>
-
-		    </div>
-
-		</header>
-
-
-        <main class="main-column">
-
-            <form th:action="@{/diagnosis/submit}"
-                  th:object="${diagnosisForm}"
-                  method="post">
-
-                <div class="question">
-
-                    <h2 class="question-title">
-                        名前を入力してください
-                    </h2>
-
-                    <div class="choices">
-
-                        <input type="text"
-                               th:field="*{name}"
-                               required
-                               maxlength="50"
-                               placeholder="名前を入力">
-
-                    </div>
-
-                </div>
-
-                <div class="question" th:each="entry : ${map}">
-
-                    <h2 class="question-title">
-
-                        <span th:text="${entry.key.body}">質問 1</span>
-
-                    </h2>
-
-                    <div class="choices">
-
-                        <label class="choice" th:each="choice, iterStat : ${entry.value}">
-
-                            <input type="radio"
-                                   th:field="*{selects[__${entry.key.id}__]}"
-                                   th:value="${choice.id}"
-                                   th:required="${iterStat.first}" />
-
-                            <span th:text="${choice.body}">[選択肢]</span>
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-                <div class="button-area">
-
-                    <button type="submit"
-                            class="submit-button">
-
-                        診断する
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </main>
-
-		<!-- ============================================
-		     フッター
-		     ============================================ -->
-		<footer class="footer">
-
+			<!-- 左上のロゴ -->
 			<a th:href="@{/}" href="index.html">
-
-				<img src="../../static/images/logo.png"
-				     th:src="@{/images/logo.png}"
-				     alt="TOPへ">
-
+				<img
+					class="title-logo"
+					th:src="@{/images/diagnosis/title.png}"
+					src="../../static/images/diagnosis/title.png"
+					alt="鬼滅の刃診断">
 			</a>
-
+			
+			<!-- 中央のタイトル -->
+			<h1 class="title">診断</h1>
+			
+			<!-- 右上のメニュー -->
+			<div class="menu-wrapper">
+				<button class="menu-button"
+					type="button"
+					onclick="toggleMenu()"
+					aria-label="メニューを開く"
+					aria-expanded="false"
+					aria-controls="menu">
+					☰
+				</button>
+				
+				<!-- リンク一覧 -->
+				<nav id="menu" class="menu-list">
+					<a th:href="@{/}" href="index.html">TOP</a>
+					<a th:href="@{/questions}" href="#">診断</a>
+					<a th:href="@{/characters}" href="#">キャラクター一覧</a>
+					<a th:href="@{/users}" href="#">ユーザー一覧</a>
+				</nav>
+			</div>
+		</header>
+		
+		<main class="main-column">
+			<form th:action="@{/diagnosis/submit}"
+				th:object="${diagnosisForm}"
+				method="post">
+				
+				<div class="question">
+					<h2 class="question-title">
+						名前を入力してください
+					</h2>
+					
+					<div class="choices">
+						<input type="text"
+							th:field="*{name}"
+							required
+							maxlength="50"
+							placeholder="名前を入力">
+					</div>
+				</div>
+				
+				<div class="question" th:each="entry : ${map}">
+					<h2 class="question-title">
+						<span th:text="${entry.key.body}">質問 1</span>
+					</h2>
+					
+					<div class="choices">
+ 						<label class="choice" th:each="choice, iterStat : ${entry.value}">
+							<input type="radio"
+								th:field="*{selects[__${entry.key.id}__]}"
+								th:value="${choice.id}"
+								th:required="${iterStat.first}" />
+							<span th:text="${choice.body}">[選択肢]</span>
+						</label>
+					</div>
+				</div>
+				
+				<div class="button-area">
+					<button type="submit" class="submit-button">
+						診断する
+					</button>
+				</div>
+			</form>
+		</main>
+		
+		<!-- カカト -->
+		<footer class="footer">
+			<a th:href="@{/}" href="index.html">
+				<img src="../../static/images/logo.png"
+					th:src="@{/images/logo.png}"
+					alt="TOPへ">
+			</a>
+			
 			<p class="copyright">
 				<small>&copy;Copyright 2026 304_メタモン</small>
 			</p>
-
 		</footer>
-
-    </div>
-
-
-	<script>
-	    function toggleMenu() {
-	        const menu = document.getElementById("menu");
-	        const button = document.querySelector(".menu-button");
-
-	        menu.classList.toggle("open");
-
-	        const isOpen = menu.classList.contains("open");
-	        button.setAttribute("aria-expanded", isOpen);
-	        button.setAttribute(
-	            "aria-label",
-	            isOpen ? "メニューを閉じる" : "メニューを開く"
-	        );
-	    }
-	</script>
-
+	</div>
 	
+	<script>
+		function toggleMenu() {
+			const menu = document.getElementById("menu");
+			const button = document.querySelector(".menu-button");
+			menu.classList.toggle("open");
+			const isOpen = menu.classList.contains("open");
+			button.setAttribute("aria-expanded", isOpen);
+			button.setAttribute(
+				"aria-label",
+				isOpen ? "メニューを閉じる" : "メニューを開く"
+			);
+		}
+	</script>
 </body>
-
 </html>
