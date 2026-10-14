@@ -177,7 +177,7 @@ body.page-characters .question {
 	width: 100%;
 	max-width: 100%;
 	margin: 0 0 clamp(24px, 4vw, 55px);
-	padding: 12px;
+	padding: 30px;
 	background: #f5f2ec;
 	border: 1px solid #222;
 	box-sizing: border-box;
