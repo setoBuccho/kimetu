@@ -18,9 +18,7 @@
 		rel="stylesheet">
 
 	<!-- 共通CSS -->
-	<link rel="stylesheet"
-		th:href="@{/css/normalize.css}"
-		href="../../static/css/normalize.css">
+	<link rel="stylesheet" th:href="@{/css/normalize.css}" href="../../../static/css/normalize.css">
 
 	<link rel="stylesheet"
 		th:href="@{/css/diagnosis/style.css}"
@@ -118,6 +116,11 @@
 
 				<!-- キャラクター情報 -->
 				<div class="info">
+
+					<p class="kana"
+					   th:text="${character.familyNameKana}+' '+${character.firstNameKana}">
+						かまど たんじろう
+					</p>
 
 					<p class="name"
 					   th:text="${character.familyName}+' '+${character.firstName}">

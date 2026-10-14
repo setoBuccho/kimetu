@@ -162,6 +162,14 @@ body.page-characters .card .info {
 /* ------------------------------------------------
    6. カード内の文字デザイン（大正ロマン風）
    ------------------------------------------------ */
+   /* ふりがな：名前より小さく、名前の文字の左端にそろえる */
+   body.page-characters .card .kana {
+   	margin: 0 0 -4px 18px;
+   	font-family: "Shippori Mincho", serif;
+   	font-size: 13px;
+   	letter-spacing: 0.1em;
+   	color: #3a3a3a;
+   }
 body.page-characters .card .name {
 	font-family: "Zen Antique", serif;
 	font-size: clamp(20px, 5vw, 28px); /* 画面幅に合わせて 20px〜28px で伸び縮み */

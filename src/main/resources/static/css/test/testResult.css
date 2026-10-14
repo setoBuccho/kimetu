@@ -166,11 +166,19 @@ body.page-result .result-main::before {
 }
 
 .lead {
-    margin: 0 0 8px;
-    font-size: 14px;
-    letter-spacing: .1em;
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .15em;
 }
 
+/* ふりがな：名前のすぐ上に小さく */
+.result-kana {
+    margin: 0 0 2px;
+    font-size: 14px;
+    letter-spacing: .2em;
+    color: #555;
+}
 .result-name {
     margin: 0 0 12px;
     padding-left: 0;
