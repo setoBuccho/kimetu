@@ -7,6 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>キャラクター診断 | 最後の質問</title>
 
+<<<<<<< HEAD
+=======
+    <!-- ===== Google Fonts ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Antique&family=Shippori+Mincho:wght@400;600&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          th:href="@{/css/normalize.css}"
+          href="../../../resources/static/css/normalize.css">
+>>>>>>> refs/heads/master
 
 <link rel="stylesheet"
       th:href="@{/css/normalize.css}"
@@ -44,15 +56,60 @@
 
 <div class="screen">
 
+<<<<<<< HEAD
     <header>
         <!-- 左上のロゴ -->
         <img class="title-logo"
              alt="鬼滅の刃診断"
              th:src="@{/images/diagnosis/title.png}"
              src="../../static/images/diagnosis/title.png">
+=======
+        <header>
 
+            <!-- 左上のロゴ -->
+            <img class="title-logo"
+                 alt="鬼滅の刃診断"
+                 th:src="@{/images/diagnosis/title.png}"
+                 src="../../static/images/diagnosis/title.png">
+>>>>>>> refs/heads/master
+
+<<<<<<< HEAD
         <!-- 中央のタイトル -->
         <h1 class="title">最後の質問</h1>
+=======
+            <!-- 中央のタイトル -->
+            <h1 class="title">最後の質問</h1>
+
+            <!-- 右上のメニュー -->
+            <div class="menu-wrapper">
+
+                <button
+                    type="button"
+                    class="menu-button"
+                    onclick="toggleMenu()"
+                    aria-label="メニューを開く"
+                    aria-expanded="false"
+                    aria-controls="menu">
+                    ☰
+                </button>
+
+                <!-- リンク一覧 -->
+                <nav id="menu" class="menu-list">
+
+                    <a th:href="@{/}" href="index.html">TOP</a>
+
+                    <a th:href="@{/questions}" href="#">診断</a>
+
+                    <a th:href="@{/characters}" href="#">キャラクター一覧</a>
+
+                    <a th:href="@{/users}" href="#">ユーザー一覧</a>
+
+                </nav>
+
+            </div>
+
+        </header>
+>>>>>>> refs/heads/master
 
         <!-- 右上のメニュー -->
         <div class="menu-wrapper">
@@ -152,5 +209,20 @@
     }
 </script>
 
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            const button = document.querySelector(".menu-button");
+
+            menu.classList.toggle("open");
+
+            const isOpen = menu.classList.contains("open");
+            button.setAttribute("aria-expanded", isOpen);
+            button.setAttribute(
+                "aria-label",
+                isOpen ? "メニューを閉じる" : "メニューを開く"
+            );
+        }
+    </script>
 </body>
 </html>
