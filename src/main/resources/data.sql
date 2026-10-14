@@ -1,6 +1,9 @@
+-- ★修正：ファイル保存のDBで毎回起動してもデータが重複しないよう、全INSERTを「テーブルが空のときだけ入れる」形に変更
+-- 　（INSERT ... SELECT * FROM (VALUES ...) AS v WHERE NOT EXISTS (...) の形。登録するデータの中身は変更なし）
+
 -- 1.キャラクター
 INSERT INTO characters  (family_name, first_name, family_name_kana, first_name_kana, description, description_result, character_image_path, result_image_path)
-VALUES
+SELECT * FROM (VALUES
 (
 	'竈門',
 	'炭治郎',
@@ -130,7 +133,9 @@ VALUES
 	'大きな包容力と深い慈しみを持つあなた。どんな相手にも敬意を持って接し、弱い立場の人を守ることを何よりも大切にします。物静かながら、揺るぎない信念を持つ、頼れる存在です。',
 	'images/diagnosis/characters/gyomei.png',
 	'images/diagnosis/result/gyomei.png'
-); -- 13
+) -- 13
+) AS v
+WHERE NOT EXISTS (SELECT 1 FROM characters);
 
 
 -- 2.質問
@@ -138,7 +143,7 @@ VALUES
 -- ★修正：キャラクターが連想されにくいよう、質問文を中立的な表現に変更（選択肢の割り当ては変更なし）
 -- idを指定して登録する（最終質問のid=16は、既存コードがid=16で取得しているため変更しない）
 INSERT INTO questions (id, body)
-VALUES
+SELECT * FROM (VALUES
 (1,'誰かが失敗して落ち込んでいる。どう声をかける？'), -- 1（旧Q3）
 (2,'新しい役割を勧められた。あなたは？'), -- 2（旧Q4）
 (3,'大切な物を預かった。どう扱う？'), -- 3（旧Q5）
@@ -150,19 +155,25 @@ VALUES
 (9,'予定外のトラブルが起きた。どう対応する？'), -- 9（旧Q11）
 (10,'大切な人にどう接する？'), -- 10（旧Q12）
 (11,'つらい出来事を乗り越えるとき、力になるものは？'), -- 11（旧Q13）
-(12,'身近な人が傷つけられたとき、どう感じる？'), -- 12（旧Q14）
-(13,'自分の弱さと、どう向き合う？'); -- 13（旧Q15）
+-- ★修正：質問12を「友人の誕生日を祝う」場面に変更（案D）
+(12,'友人の誕生日を祝うことになった。どう祝う？'), -- 12（旧Q14）
+(13,'自分の弱さと、どう向き合う？') -- 13（旧Q15）
+) AS v
+WHERE NOT EXISTS (SELECT 1 FROM questions);
 
 -- 有木：13問で同点になった場合だけ表示する最終質問
+-- ★修正：上のINSERTで質問が入った後でも動くよう、「id=16がないときだけ入れる」条件にした
 INSERT INTO questions (id, body)
-VALUES
-(16,'最後の質問！あなたが一番大切にしたい気持ちは？'); -- 16
+SELECT * FROM (VALUES
+(16,'最後の質問！あなたが一番大切にしたい気持ちは？') -- 16
+) AS v
+WHERE NOT EXISTS (SELECT 1 FROM questions WHERE id = 16);
 
 -- 3.選択肢
 -- ★修正：選択肢の文面を中立的な表現にした。どのキャラに割り当てるか（characters_id）は変更なし
 -- ★修正：全キャラクターが4回ずつ登場する形は維持している
 INSERT INTO choices (questions_id, characters_id, body)
-VALUES
+SELECT * FROM (VALUES
 (1,13,'努力したことを、まず認めてあげる'),
 (1,10,'厳しい言葉をかけて、次は必ずできると背中を押す'),
 (1,9,'そっと寄り添って、気持ちが落ち着くまで話を聞く'),
@@ -218,10 +229,11 @@ VALUES
 (11,6,'今この瞬間を全力で過ごすこと'),
 (11,12,'冷静に状況を受け止め、先を見据えること'),
 
-(12,5,'表には出さず、静かに怒りを抱く'),
-(12,8,'相手を鋭くにらみつける'),
-(12,10,'怒りを抑えきれず、すぐに行動に出る'),
-(12,11,'同じ目に遭わせてやりたいと思う'),
+-- ★修正：質問12の選択肢を案Dの文面に変更（characters_id の割り当て 5・8・10・11 は変更なし）
+(12,5,'小さな贈り物を、さりげなく渡す'),
+(12,8,'相手の好みをよく調べて、的確なものを選ぶ'),
+(12,10,'照れくさくても、本心を直接伝える'),
+(12,11,'みんなを巻き込んで、盛大に祝う'),
 
 (13,7,'弱さを表に出さず、笑顔で乗り越えようとする'),
 (13,2,'怖さを感じても、前に進もうとする'),
@@ -241,13 +253,26 @@ VALUES
 (16,10,'誰かを本気で守りたいという気持ち'),
 (16,11,'仲間のために体を張る覚悟'),
 (16,12,'自分の役目を着実に果たす気持ち'),
-(16,13,'弱い者を守るという信念');
+(16,13,'弱い者を守るという信念')
+) AS v
+WHERE NOT EXISTS (SELECT 1 FROM choices);
 
-INSERT INTO users (name) VALUES
+-- 4.ユーザー（テスト用）
+INSERT INTO users (name)
+SELECT * FROM (VALUES
 ('テストユーザー1'),
-('テストユーザー2');
+('テストユーザー2')
+) AS v
+WHERE NOT EXISTS (SELECT 1 FROM users);
 
 
-INSERT INTO diagnosis_results (users_id, characters_id) VALUES
+-- 5.診断結果（テスト用）
+-- ★修正：users_idがFK制約のため、「id=1と2のユーザーが存在するときだけ」入れる条件も追加
+INSERT INTO diagnosis_results (users_id, characters_id)
+SELECT * FROM (VALUES
 (1,1),
-(2,2);
+(2,2)
+) AS v
+WHERE NOT EXISTS (SELECT 1 FROM diagnosis_results)
+  AND EXISTS (SELECT 1 FROM users WHERE id = 1)
+  AND EXISTS (SELECT 1 FROM users WHERE id = 2);
