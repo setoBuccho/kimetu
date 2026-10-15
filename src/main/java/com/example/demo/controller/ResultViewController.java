@@ -36,6 +36,11 @@ public class ResultViewController {
                     id -> characterService.getCharacterById(id));
         }
 
+        // 追加：最新の診断結果のキャラクターを result.html 用に渡す
+        if (!results.isEmpty()) {
+            model.addAttribute("character", characters.get(results.get(0).getCharacterId()));
+        }
+
         model.addAttribute("results", results);
         model.addAttribute("characters", characters);
         return "diagnosis/result";
