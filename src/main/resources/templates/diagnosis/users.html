@@ -122,10 +122,15 @@
 
             </p>
 
-            <img th:if="${characterImages[u.id] != null}"
-                 th:src="${characterImages[u.id]}"
-                 th:alt="${characterNames[u.id]}"
-                 style="width: 60px; height: 60px; object-fit: contain;">
+            <!-- 追加：画像を押すとキャラクター紹介（診断結果画面）を表示 -->
+            <a th:if="${characterImages[u.id] != null}"
+               th:href="@{/result/{id}(id=${u.id})}">
+
+                <img th:src="${characterImages[u.id]}"
+                     th:alt="${characterNames[u.id]}"
+                     style="width: 60px; height: 60px; object-fit: contain;">
+
+            </a>
 
         </div>
 
