@@ -707,41 +707,43 @@ body {
     border: none !important;
     box-shadow: none !important;
 }
-/* ユーザー編集画面：横に広げて、スクロールなしで収める */
-.register-screen.edit-screen {
-    width: min(90%, 800px);
-    margin: 20px auto;
-    padding: 30px 40px;
-}
+/* ========================================
+   ユーザー編集・登録画面:1画面に収める
+   ======================================== */
 
-/* 名前と診断結果を横並びに */
-.edit-screen .edit-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-/* 診断結果の見出しの上余白をなくして、名前とそろえる */
-.edit-screen .edit-row p:first-child {
-    margin-top: 0;
-}
-
-@media (max-width: 640px) {
-    .edit-screen .edit-row {
-        grid-template-columns: 1fr;
-    }
-}
-/* タイトル行(キャラ画像)とフォームの間に余白をあける */
-.edit-screen .edit-title {
-    margin-bottom: 24px;
-}
-/* ===== ユーザー編集画面:1画面に収める ===== */
-.register-screen.edit-screen {
+/* --- 共通 --- */
+.register-screen {
     height: calc(100vh - 40px);
     height: calc(100dvh - 40px);
     min-height: 0;
     margin: 20px auto;
+    padding: 30px 40px;
     display: flex;
     flex-direction: column;
+}
+
+.register-screen form {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-screen .profile-area {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-screen .profile-area textarea {
+    flex: 1;
+    resize: none;
+}
+
+/* --- 編集画面 --- */
+.register-screen.edit-screen {
+    width: min(90%, 800px);
 }
 
 .edit-screen > header,
@@ -758,34 +760,38 @@ body {
     flex-direction: column;
 }
 
-.edit-screen form {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.edit-screen .profile-area {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.edit-screen .profile-area textarea {
-    flex: 1;
-    min-height: 60px;
-    resize: none;
+.edit-screen .edit-title {
+    margin-bottom: 12px;
 }
 
 .edit-screen .edit-title img {
-    height: clamp(60px, 16vh, 150px);
+    height: clamp(80px, 20vh, 170px);
     width: auto;
+}
+
+.edit-screen .edit-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.edit-screen .edit-row p:first-child {
+    margin-top: 0;
+}
+
+.edit-screen .profile-area textarea {
+    min-height: 60px;
 }
 
 .edit-screen .edit-save-button,
 .edit-screen .edit-top-button {
     height: clamp(60px, 12vh, 100px);
+}
+
+@media (max-width: 640px) {
+    .edit-screen .edit-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-height: 700px) {
@@ -798,51 +804,31 @@ body {
     }
 }
 
-/* ===== ユーザー登録画面:1画面に収める ===== */
+/* --- 登録画面 --- */
 .register-screen:not(.edit-screen) {
-    height: calc(100vh - 40px);
-    height: calc(100dvh - 40px);
-    min-height: 0;
-    margin: 20px auto;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    display: flex;
-    flex-direction: column;
+    padding-bottom: 32px;
 }
 
-.register-screen:not(.edit-screen) .register-title,
-.register-screen:not(.edit-screen) .register-form > div:first-child {
+.register-screen:not(.edit-screen) .register-title {
     flex-shrink: 0;
+    margin-bottom: 10px;
 }
 
-/* タイトル横のイラスト:画面の高さに合わせて少し縮む(最大は元の大きさ) */
 .register-screen:not(.edit-screen) .register-title img {
     width: auto;
     height: clamp(80px, 20vh, 170px);
 }
 
-.register-screen:not(.edit-screen) .register-title {
-    margin-bottom: 10px;
+.register-screen .register-form > div:first-child {
+    flex-shrink: 0;
 }
 
-/* フォーム全体 */
-.register-screen:not(.edit-screen) .register-form {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.register-screen:not(.edit-screen) .register-form > div {
+.register-screen .register-form > div {
     margin-bottom: 16px;
 }
 
-/* プロフィール欄(黄色の枠)が残りの高さを使う */
 .register-screen:not(.edit-screen) .profile-area {
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 8px;
 }
 
 .register-screen:not(.edit-screen) .profile-input {
@@ -852,98 +838,24 @@ body {
 }
 
 .register-screen:not(.edit-screen) .profile-input textarea {
-    flex: 1;
-    min-height: 80px;
-    resize: none;
+    min-height: calc(1.7em * 3 + 24px);   /* 最小3行 */
+    line-height: 1.7;
 }
 
-/* 義勇の看板ボタン:縦横比はそのままで、高さに合わせて縮む */
-/* 義勇の看板ボタン:画像も文字も同じ割合で縮む */
+/* 義勇さんの看板:画像も文字も同じ割合で縮む */
 .register-screen:not(.edit-screen) .register-button {
-    --h: clamp(110px, 22vh, 180px);   /* ボタンの高さ(ここを変えると全体が連動) */
+    --h: clamp(120px, 26vh, 200px);
     flex-shrink: 0;
     height: var(--h);
     width: calc(var(--h) * 280 / 180);
-    margin: 10px auto 0;
+    margin: 0 auto;
 }
 
-.register-screen:not(.edit-screen) .register-button img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-/* 文字:看板の上に固定して、高さに比例して縮む */
 .register-screen:not(.edit-screen) .register-button span {
-    position: absolute;
-    top: calc(var(--h) * 0.1);
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 0;
-    background: none;
-    font-size: max(12px, calc(var(--h) * 0.1));
-    white-space: nowrap;
-}
-/* ===== 登録画面:プロフィール欄を3行に・義勇さんを大きく ===== */
-
-/* プロフィール欄:残りの高さを使わず、3行ぶんの高さに固定 */
-.register-screen:not(.edit-screen) .profile-area {
-    flex: 0 0 auto;
-}
-
-.register-screen:not(.edit-screen) .profile-input {
-    flex: 0 0 auto;
-}
-
-.register-screen:not(.edit-screen) .profile-input textarea {
-    flex: 0 0 auto;
-    height: calc(1.7em * 3 + 24px);   /* 3行 + 上下の余白 */
-    min-height: 0;
-    line-height: 1.7;
-    resize: none;
-}
-
-/* 義勇さん:少し大きく */
-.register-screen:not(.edit-screen) .register-button {
-    --h: clamp(130px, 28vh, 220px);
-    height: var(--h);
-    width: calc(var(--h) * 280 / 180);
-    margin: 16px auto 0;
-}
-
-/* 文字:大きくして、看板の真ん中にそろえる */
-.register-screen:not(.edit-screen) .register-button span {
-    position: absolute;
-    top: calc(var(--h) * 0.24);          /* 看板の縦の中心 */
-    left: 50%;
-    transform: translate(-50%, -50%);    /* 文字自身の中心で合わせる */
+    top: calc(var(--h) * 0.24);
+    transform: translate(-50%, -50%);
     padding: 0;
     background: none;
     font-size: max(14px, calc(var(--h) * 0.12));
     line-height: 1;
-    text-align: center;
-    white-space: nowrap;
-}
-/* ===== 登録画面:義勇さんの位置を調整 ===== */
-.register-screen:not(.edit-screen) {
-    padding-bottom: 32px;   /* 足元に余白をつくる */
-}
-
-.register-screen:not(.edit-screen) .register-button {
-    --h: clamp(120px, 26vh, 200px);   /* 少しだけ小さく(下が窮屈なため) */
-    margin: 0 auto;                   /* プロフィール欄との空きを詰める */
-}
-
-.register-screen:not(.edit-screen) .profile-area {
-    margin-bottom: 8px;
-}
-
-/* ===== 編集画面:4人の画像を大きく ===== */
-.edit-screen .edit-title img {
-    height: clamp(80px, 20vh, 170px);
-    width: auto;
-}
-
-.edit-screen .edit-title {
-    margin-bottom: 12px;   /* 画像が大きくなる分、下の余白を詰める */
 }
