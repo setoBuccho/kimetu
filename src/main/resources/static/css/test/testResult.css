@@ -98,7 +98,7 @@ body.page-result .result-main::before {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-image: url("../../images/diagnosis/test/back6.jpg");
+    background-image: url("../../images/diagnosis/test/back6.png");
     background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;

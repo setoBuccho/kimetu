@@ -12,11 +12,14 @@
    ------------------------------------------------ */
 html:has(body.page-characters),
 body.page-characters {
+	position: relative;
 	margin: 0;
 	padding: 0;
 	background: none;                 /* style.css の青い背景を消す */
 }
 body.page-characters {
+--zoom: 1.5;
+--progress: 0;
 	min-height: 100vh;
 }
 
@@ -26,19 +29,22 @@ body.page-characters {
 body.page-characters::before {
 	content: "";
 	position: fixed;                  /* スクロールしても動かない */
-	top: 0;
+	top: -40vh;
+	left: 0;
+	width: 100%;
+	height: calc(160vh * var(--zoom));
+	/*top: 0;
 	right: 0;
 	bottom: 0;
-	left: 0;
+	left: 0;*/
 	z-index: -1;                      /* 中身より後ろに置く */
-
-	/* 背景画像（このCSSの場所 static/css/test/ から見た相対パス） */
-
-	background-image: url("../../images/diagnosis/test/back5.jpg");
-
+	background-image: url("../../images/diagnosis/test/back5.png");
 	background-size: cover;           /* 画面いっぱいに拡大 */
-	background-position: center;
+	background-position: center top;
 	background-repeat: no-repeat;
+	
+	transform: translate3d(0, calc(var(--progress) * (var(--zoom) - 1) * -100vh), 0);
+	will-change: transform;
 }
 
 /* ------------------------------------------------
