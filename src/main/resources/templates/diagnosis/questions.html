@@ -109,12 +109,9 @@
 						</label>
 					</div>
 				</div>
-				
-				<div class="button-area">
-					<button type="submit" class="submit-button">
-						診断する
-					</button>
-				</div>
+				<button type="submit" class="submit-button">
+					診断する
+				</button>
 			</form>
 		</main>
 		
@@ -144,6 +141,43 @@
 				isOpen ? "メニューを閉じる" : "メニューを開く"
 			);
 		}
+		
+		(function() {
+			/*const speed = 0.3;
+			const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			if (reduce) return;
+			let ticking = false;*/
+			const root = document.body;
+			let ticking = false;
+			
+			function update() {
+				/*const shift = window.scrollY * speed * -1;
+				document.body.style.setProperty("--bg-shift", shift + "px");*/
+				const max = document.documentElement.scrollHeight - window.innerHeight;
+				const progress = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+				root.style.setProperty("--progress", progress);
+				ticking = false;
+			}
+			
+			function request() {
+				if (!ticking) {
+					requestAnimationFrame(update);
+					ticking = true;
+				}
+			}
+			
+			/*window.addEventListener("scroll", function() {
+				if (!ticking) {
+					requestAnimationFrame(update);
+					ticking = true;
+				}
+			}, { passive: true });*/
+			
+			window.addEventListener("scroll", request, { passive: true });
+			window.addEventListener("resize", request);
+			
+			update();
+		})();
 	</script>
 </body>
 </html>
